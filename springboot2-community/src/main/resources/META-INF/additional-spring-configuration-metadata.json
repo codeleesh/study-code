@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "property.test.name",
+      "type": "java.lang.String",
+      "description": "Description for property.test.name."
+    },
+    {
+      "name": "propertyTest",
+      "type": "java.lang.String",
+      "description": "Description for propertyTest."
+    },
+    {
+      "name": "propertyTestList",
+      "type": "java.lang.String",
+      "description": "Description for propertyTestList."
+    }
+  ] }
