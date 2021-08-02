@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class Springboo2CommunityApplicationTests {
+public class Springboot2CommunityApplicationTests {
 
     @Value("${property.test.name}")
     private String propertyTestName;

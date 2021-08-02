@@ -1,4 +1,4 @@
-rootProject.name = 'springboo2-community'
+rootProject.name = 'springboot2-community'
 include 'springboot2-web'
 include 'springboot2-domain'
 
