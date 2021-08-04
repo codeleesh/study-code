@@ -1,4 +1,4 @@
-package com.example.springboot2community.pojo;
+package com.lovethefeel.springboot2.pojo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

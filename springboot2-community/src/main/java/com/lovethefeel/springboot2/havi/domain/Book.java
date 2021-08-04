@@ -1,17 +1,26 @@
-package com.example.springboot2community.havi.domain;
+package com.lovethefeel.springboot2.havi.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
+@Entity
+@Table
 public class Book {
 
-    private Integer idx;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private String title;
+
+    @Column
     private LocalDateTime publishedAt;
 
     @Builder

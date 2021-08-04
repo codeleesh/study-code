@@ -1,4 +1,4 @@
-package com.example.springboot2community.pojo;
+package com.lovethefeel.springboot2.pojo;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

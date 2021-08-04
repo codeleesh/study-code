@@ -1,4 +1,4 @@
-package com.example.springboot2community;
+package com.lovethefeel.springboot2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,10 +25,6 @@ public class Springboot2CommunityApplicationTests {
 
     @Value("#{'${propertyTestList}'.split(',')}")
     private List<String> propertyTestList;
-
-    @Test
-    public void contextLoads() {
-    }
 
     @Test
     public void testValue() {

@@ -1,4 +1,4 @@
-package com.example.springboot2community;
+package com.lovethefeel.springboot2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

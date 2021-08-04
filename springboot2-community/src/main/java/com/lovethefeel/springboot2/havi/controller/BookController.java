@@ -1,6 +1,6 @@
-package com.example.springboot2community.havi.controller;
+package com.lovethefeel.springboot2.havi.controller;
 
-import com.example.springboot2community.havi.service.BookService;
+import com.lovethefeel.springboot2.havi.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

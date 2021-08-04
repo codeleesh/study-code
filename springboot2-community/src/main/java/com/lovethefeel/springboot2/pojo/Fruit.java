@@ -1,4 +1,4 @@
-package com.example.springboot2community.pojo;
+package com.lovethefeel.springboot2.pojo;
 
 import lombok.Data;
 
