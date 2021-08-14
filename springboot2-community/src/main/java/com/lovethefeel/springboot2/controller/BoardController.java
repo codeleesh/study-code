@@ -20,12 +20,12 @@ public class BoardController {
     @GetMapping({"", "/"})
     public String board(@RequestParam(value = "id", defaultValue = "0") Long id, Model model) {
         model.addAttribute("board", boardService.findBoardById(id));
-        return "/board/form";
+        return "board/form";
     }
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public String list(@PageableDefault Pageable pageable, Model model) {
         model.addAttribute("boardList", boardService.findBoardList(pageable));
-        return "/board/list";
+        return "board/list";
     }
 }
