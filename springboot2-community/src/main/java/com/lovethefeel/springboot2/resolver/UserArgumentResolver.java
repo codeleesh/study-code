@@ -23,9 +23,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.lovethefeel.springboot2.domain.enums.SocialType.FACEBOOK;
-import static com.lovethefeel.springboot2.domain.enums.SocialType.GOOGLE;
-import static com.lovethefeel.springboot2.domain.enums.SocialType.KAKAO;
+import static com.lovethefeel.springboot2.domain.enums.SocialType.*;
 
 /**
  * 특정 전략을 인터페이스로 만들고 이를 여러 전략 객체로 구현
@@ -43,8 +41,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 파라미터를 지원할지 여부를 반환 true를 반환하면 resolveArgument 메소드가 수행
-     * @param parameter
-     * @return boolean
      */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -53,11 +49,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 파라미터의 인자값에 대한 정보를 바탕으로 실제 객체를 생성하여 해당 파라미터 객체에 바인딩
-     * @param parameter
-     * @param mavContainer
-     * @param webRequest
-     * @param binderFactory
-     * @return
      */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
@@ -68,9 +59,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 인증된 User 객체를 만드는 메인 메소드
-     * @param user
-     * @param session
-     * @return
+     * 2.0 버전에서는 기존의 OAuth2Authentication이 아닌 액세스 토큰까지 제공한다는 의미에서 OAuth2AuthenticationToken을 지원
+     * SecurityContexHolder에서 OAuth2AuthenticationToken을 가져옴
      */
     private User getUser(User user, HttpSession session) {
         if(user == null) {
@@ -94,9 +84,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     /**
      * 사용자의 인증된 소셜 미디어 타입에 따라 빌더를 사용하여 User 객체를 만들어 주는 가교 역할
      * 카카오의 경우에는 별도의 메소드를 사용
-     * @param authority
-     * @param map
-     * @return
      */
     private User convertUser(String authority, Map<String, Object> map) {
         if(FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
@@ -107,9 +94,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     /**
      * 페이스북이나 구글과 같이 공통되는 명명규칙을 가진 그룹을 User 객체로 매핑
-     * @param socialType
-     * @param map
-     * @return
      */
     private User getModernUser(SocialType socialType, Map<String, Object> map) {
         return User.builder()
@@ -124,8 +108,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     /**
      * (키의 네이밍값이 타 소셜 미디어와 다른) 카카오 회원을 위한 메소드
      * getModernUser() 메소드와 동일하게 User 객체로 매핑
-     * @param map
-     * @return
      */
     private User getKaKaoUser(Map<String, Object> map) {
         Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
@@ -141,9 +123,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     /**
      * 인증된 authentication이 권한을 갖고 있는지 체크하는 용도로 쓰임
      * 만약 저장된 User 권한이 없으면 SecurityContexHolder를 사용하여 해당 소셜 미디어 타입으로 권한을 저장
-     * @param user
-     * @param authentication
-     * @param map
      */
     private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication, Map<String, Object> map) {
         if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {

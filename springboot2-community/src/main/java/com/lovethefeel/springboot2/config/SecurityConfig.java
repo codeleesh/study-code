@@ -59,8 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
     }
 
+    /**
+     * 카카오 클라이언트 ID를 불러옴
+     * @Configuration으로 등록되어 있는 클래스에서 @Bean으로 등록된 메소드의 파라미터로 지정된 객체들은 오토와이어링(autowiring)할 수 있음
+     * OAuth2ClientProperties에는 구글과 페이스북의 정보가 들어 있고 카카오는 따로 등록했기 때문에 @Value 어노테이션을 사용하여 수동으로 불러옴
+     * getRegistration 메소드를 사용해 구글과 페이스북의 인증 정보를 빌드
+     */
     @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId) {
+    public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties
+            , @Value("${custom.oauth2.kakao.client-id}") String kakaoClientId) {
         List<ClientRegistration> registrations = oAuth2ClientProperties.getRegistration().keySet().stream()
                 .map(client -> getRegistration(oAuth2ClientProperties, client))
                 .filter(Objects::nonNull)
