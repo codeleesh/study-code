@@ -9,19 +9,22 @@ public class SocialTypeTest {
     @Test
     public void getRoleType() {
         SocialType socialType = SocialType.FACEBOOK;
-        assertThat("ROLE_FACEBOOK").isEqualTo(socialType.getRoleType());
+        assertThat(socialType.getRoleType()).isEqualTo("ROLE_FACEBOOK");
+
+        socialType = SocialType.KAKAO;
+        assertThat(socialType.getRoleType()).isEqualTo("ROLE_KAKAO");
     }
 
     @Test
     public void getValue() {
         SocialType socialType = SocialType.FACEBOOK;
-        assertThat("facebook").isEqualTo(socialType.getValue());
+        assertThat(socialType.getValue()).isEqualTo("facebook");
     }
 
     @Test
     public void isEquals() {
         String authority = "ROLE_FACEBOOK";
         SocialType socialType = SocialType.FACEBOOK;
-        assertThat(true).isEqualTo(socialType.isEquals(authority));
+        assertThat(socialType.isEquals(authority)).isEqualTo(true);
     }
 }
