@@ -8,8 +8,8 @@ public class BoardTypeTest {
 
     @Test
     public void testGetValue() {
-        assertThat("자유게시판").isEqualTo(BoardType.free.getValue());
-        assertThat("notice").isEqualTo(BoardType.notice.name());
+        assertThat(BoardType.free.getValue()).isEqualTo("자유게시판");
+        assertThat(BoardType.notice.name()).isEqualTo("notice");
     }
 
 }
