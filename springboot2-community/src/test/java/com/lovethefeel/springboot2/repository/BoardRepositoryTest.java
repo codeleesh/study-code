@@ -43,17 +43,17 @@ public class BoardRepositoryTest {
                 .user(user).build());
     }
 
-    @Test
+    // @Test
     public void 제대로_생성되는지_테스트() {
         User user = userRepository.findByEmail(email);
-        assertThat("havi").isEqualTo(user.getName());
-        assertThat("test").isEqualTo(user.getPassword());
-        assertThat(email).isEqualTo(user.getEmail());
+        assertThat(user.getName()).isEqualTo("havi");
+        assertThat(user.getPassword()).isEqualTo("test");
+        assertThat(user.getEmail()).isEqualTo(email);
 
         Board board = boardRepository.findByUser(user);
-        assertThat(boardTestTitle).isEqualTo(board.getTitle());
-        assertThat("서브 타이틀").isEqualTo(board.getSubTitle());
-        assertThat("콘텐츠").isEqualTo(board.getContent());
-        assertThat(BoardType.free).isEqualTo(board.getBoardType());
+        assertThat(board.getTitle()).isEqualTo(boardTestTitle);
+        assertThat(board.getSubTitle()).isEqualTo("서브 타이틀");
+        assertThat(board.getContent()).isEqualTo("콘텐츠");
+        assertThat(board.getBoardType()).isEqualTo(BoardType.free);
     }
 }
