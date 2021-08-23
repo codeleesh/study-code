@@ -19,11 +19,11 @@ public class FruitPropertyTest {
         List<Fruit> fruitData = fruitProperty.getList();
 
         assertThat(3).isEqualTo(fruitData.size());
-        assertThat("banana").isEqualTo(fruitData.get(0).getName());
-        assertThat("yellow").isEqualTo(fruitData.get(0).getColor());
-        assertThat("apple").isEqualTo(fruitData.get(1).getName());
-        assertThat("red").isEqualTo(fruitData.get(1).getColor());
-        assertThat("water melon").isEqualTo(fruitData.get(2).getName());
-        assertThat("green").isEqualTo(fruitData.get(2).getColor());
+        assertThat(fruitData.get(0).getName()).isEqualTo("banana");
+        assertThat(fruitData.get(0).getColor()).isEqualTo("yellow");
+        assertThat(fruitData.get(1).getName()).isEqualTo("apple");
+        assertThat(fruitData.get(1).getColor()).isEqualTo("red");
+        assertThat(fruitData.get(2).getName()).isEqualTo("water melon");
+        assertThat(fruitData.get(2).getColor()).isEqualTo("green");
     }
 }
