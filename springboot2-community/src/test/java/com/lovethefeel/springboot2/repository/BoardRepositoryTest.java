@@ -43,7 +43,7 @@ public class BoardRepositoryTest {
                 .user(user).build());
     }
 
-    // @Test
+    @Test
     public void 제대로_생성되는지_테스트() {
         User user = userRepository.findByEmail(email);
         assertThat(user.getName()).isEqualTo("havi");

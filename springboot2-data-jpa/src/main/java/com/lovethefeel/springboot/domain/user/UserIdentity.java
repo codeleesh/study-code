@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -20,9 +21,13 @@ public class UserIdentity extends BaseTimeEntity {
     @Column
     private String name;
 
+    @Column
+    private BigDecimal balanceAmt;
+
     @Builder
-    public UserIdentity(String name) {
+    public UserIdentity(String name, BigDecimal balanceAmt) {
         this.name = name;
+        this.balanceAmt = balanceAmt;
     }
 
 }
