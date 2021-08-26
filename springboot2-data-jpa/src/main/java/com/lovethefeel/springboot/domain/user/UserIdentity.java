@@ -24,10 +24,14 @@ public class UserIdentity extends BaseTimeEntity {
     @Column
     private BigDecimal balanceAmt;
 
+    @Column
+    private Long loanAmt;
+
     @Builder
-    public UserIdentity(String name, BigDecimal balanceAmt) {
+    public UserIdentity(String name, BigDecimal balanceAmt, Long loanAmt) {
         this.name = name;
         this.balanceAmt = balanceAmt;
+        this.loanAmt = loanAmt;
     }
 
 }

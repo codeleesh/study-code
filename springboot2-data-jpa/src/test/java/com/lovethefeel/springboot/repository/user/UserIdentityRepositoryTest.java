@@ -55,10 +55,11 @@ public class UserIdentityRepositoryTest {
     @Transactional
     void 스트림_출력2() {
         // given
-        IntStream.rangeClosed(1, 200).forEach(index ->
+        IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt(Long.valueOf(new SecureRandom().nextInt(100)))
                         .build())
         );
 
@@ -70,15 +71,45 @@ public class UserIdentityRepositoryTest {
         stream.forEach(user -> {
             String name = user.getName();
             BigDecimal balanceAmt = user.getBalanceAmt();
-            System.out.println("name : " + name + " balanceAmt : " + balanceAmt);
+            Long loanAmt = user.getLoanAmt();
+            System.out.println("name : " + name + " balanceAmt : " + balanceAmt + " loanAmt : " + loanAmt);
         });
     }
 
     @Test
     @Transactional
-    public void 사용자_저장_divideToIntegralValue() {
+    public void 사용자_저장_Long() {
         // given
-        IntStream.rangeClosed(1, 200).forEach(index ->
+        IntStream.rangeClosed(1, 10).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt(Long.valueOf(new SecureRandom().nextInt(100)))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        Stream<UserIdentity> stream = userIdentity.stream();
+        stream.forEach(user -> {
+            Long loanAmt = user.getLoanAmt();
+            System.out.println(" loanAmt : " + loanAmt);
+        });
+
+        // when
+        Long result = userIdentity.stream()
+                .filter(t->t.getLoanAmt() < 50)
+                .mapToLong(UserIdentity::getLoanAmt)
+                .sum();
+
+        System.out.println("합산금액: " + result);
+    }
+
+    @Test
+    @Transactional
+    public void 사용자_저장_BigDecimal() {
+        // given
+        IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
@@ -89,12 +120,8 @@ public class UserIdentityRepositoryTest {
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
 
         BigDecimal result = userIdentity.stream()
-                .map(user -> user.getBalanceAmt())
-                .reduce(BigDecimal.ZERO, (b1, b2) -> b1.add(b2));
-
-//        BigDecimal sum = userIdentity.stream().map(UserIdentity::getBalanceAmt)
-//                .reduce(BigDecimal.ZERO, Utility::addBalanceAmt);
-
+                .map(UserIdentity::getBalanceAmt)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         System.out.println("합산금액: " + result);
     }
