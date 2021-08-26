@@ -76,6 +76,31 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
+    public void 사용자_저장_divideToIntegralValue() {
+        // given
+        IntStream.rangeClosed(1, 200).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+
+        BigDecimal result = userIdentity.stream()
+                .map(user -> user.getBalanceAmt())
+                .reduce(BigDecimal.ZERO, (b1, b2) -> b1.add(b2));
+
+//        BigDecimal sum = userIdentity.stream().map(UserIdentity::getBalanceAmt)
+//                .reduce(BigDecimal.ZERO, Utility::addBalanceAmt);
+
+
+        System.out.println("합산금액: " + result);
+    }
+
+    @Test
+    @Transactional
     public void 사용자_저장_조회() {
 
         // given
