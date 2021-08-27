@@ -1,10 +1,10 @@
 package com.lovethefeel.springboot.repository.user;
 
 import com.lovethefeel.springboot.domain.user.UserIdentity;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.util.StopWatch;
 
 import javax.transaction.Transactional;
@@ -12,28 +12,22 @@ import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@SpringBootTest
+import static org.assertj.core.api.Assertions.assertThat;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserIdentityRepositoryTest {
 
     @Autowired
     private SpringDataJpaUserIdentityRepository springDataJpaUserIdentityRepository;
 
-//    @BeforeEach
-//    void init() {
-//        IntStream.rangeClosed(1, 200).forEach(index ->
-//                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-//                        .name("이름"+index)
-//                        .balance_amt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-//                        .build())
-//        );
-//    }
-
     @Test
     @Transactional
-    void 스트림_출력1() {
+    void stream_foreach_print1() {
 
         // given
         IntStream.rangeClosed(1, 200).forEach(index ->
@@ -53,13 +47,13 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
-    void 스트림_출력2() {
+    void stream_foreach_print2() {
         // given
         IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt(Long.valueOf(new SecureRandom().nextInt(100)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
                         .build())
         );
 
@@ -78,13 +72,13 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
-    public void 사용자_저장_Long() {
+    public void stream_long_sum() {
         // given
         IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt(Long.valueOf(new SecureRandom().nextInt(100)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
                         .build())
         );
 
@@ -97,7 +91,7 @@ public class UserIdentityRepositoryTest {
         });
 
         // when
-        Long result = userIdentity.stream()
+        long result = userIdentity.stream()
                 .filter(t->t.getLoanAmt() < 50)
                 .mapToLong(UserIdentity::getLoanAmt)
                 .sum();
@@ -107,12 +101,13 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
-    public void 사용자_저장_BigDecimal() {
+    public void stream_bigdecimal_sum() {
         // given
         IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
                         .build())
         );
 
@@ -128,6 +123,58 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
+    public void stream_filter_count() {
+        // given
+        IntStream.rangeClosed(1, 10).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        Stream<UserIdentity> stream = userIdentity.stream();
+        stream.forEach(user -> {
+            Long loanAmt = user.getLoanAmt();
+            System.out.println(" loanAmt : " + loanAmt);
+        });
+
+        long cnt = userIdentity.stream()
+                .filter(user -> user.getLoanAmt() > 50)
+                .count();
+        System.out.println("50보다 큰 금액의 갯수 : " + cnt);
+    }
+
+    @Test
+    @Transactional
+    public void stream_filter_save() {
+        // given
+        IntStream.rangeClosed(1, 10).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        Stream<UserIdentity> stream = userIdentity.stream();
+        stream.forEach(user -> {
+            Long loanAmt = user.getLoanAmt();
+            System.out.println(" loanAmt : " + loanAmt);
+        });
+
+        List<UserIdentity> userList = userIdentity.stream()
+                .filter(user -> user.getLoanAmt() > 50)
+                .collect(Collectors.toList());
+        System.out.println("filter count : " + userList.size());
+    }
+
+    @Test
+    @Transactional
     public void 사용자_저장_조회() {
 
         // given
@@ -139,7 +186,7 @@ public class UserIdentityRepositoryTest {
         // when
         UserIdentity result = springDataJpaUserIdentityRepository.findById(id).orElse(null);
         // then
-        Assertions.assertThat(userIdentity).isEqualTo(result);
+        assertThat(userIdentity).isEqualTo(result);
     }
 
     @Test
