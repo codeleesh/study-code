@@ -1,5 +1,6 @@
 package com.lovethefeel.springboot.repository.user;
 
+import com.lovethefeel.springboot.common.enums.Sex;
 import com.lovethefeel.springboot.domain.user.UserIdentity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -171,6 +173,39 @@ public class UserIdentityRepositoryTest {
                 .filter(user -> user.getLoanAmt() > 50)
                 .collect(Collectors.toList());
         System.out.println("filter count : " + userList.size());
+    }
+
+    @Test
+    @Transactional
+    public void stream_filter_grouping_save() {
+        // given
+        IntStream.rangeClosed(1, 10).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .sex(Sex.getRandom())
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        Stream<UserIdentity> stream = userIdentity.stream();
+        stream.forEach(user -> {
+            Long loanAmt = user.getLoanAmt();
+            String sex = user.getSex().getValue();
+            System.out.println(" loanAmt : " + loanAmt + " sex : " + sex);
+        });
+
+        Map<Sex, List<UserIdentity>> mapBySex = userIdentity.stream()
+                .collect(Collectors.groupingBy(UserIdentity::getSex));
+
+        System.out.println("\n[남성]");
+        mapBySex.get(Sex.MALE)
+                .forEach(s -> System.out.print(s.getName() + " "));
+        System.out.println("\n[여성]");
+        mapBySex.get(Sex.FEMALE)
+                .forEach(s -> System.out.print(s.getName() + " "));
     }
 
     @Test
