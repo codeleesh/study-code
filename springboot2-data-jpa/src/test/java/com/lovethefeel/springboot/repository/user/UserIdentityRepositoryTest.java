@@ -210,6 +210,42 @@ public class UserIdentityRepositoryTest {
 
     @Test
     @Transactional
+    public void stream_filter_grouping_average() {
+        // given
+        IntStream.rangeClosed(1, 10).forEach(index ->
+                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                        .name("이름"+index)
+                        .sex(Sex.getRandom())
+                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
+                        .build())
+        );
+
+        // when
+        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        Stream<UserIdentity> stream = userIdentity.stream();
+        stream.forEach(user -> {
+            Long loanAmt = user.getLoanAmt();
+            String sex = user.getSex().getValue();
+            System.out.println(" loanAmt : " + loanAmt + " sex : " + sex);
+        });
+
+        Map<Sex, Double> mapBySex = userIdentity.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                UserIdentity::getSex,
+                                Collectors.averagingLong(UserIdentity::getLoanAmt)
+                        )
+                );
+
+        System.out.println("\n[남성]");
+        System.out.print(mapBySex.get(Sex.MALE) + " ");
+        System.out.println("\n[여성]");
+        System.out.print(mapBySex.get(Sex.FEMALE) + " ");
+    }
+
+    @Test
+    @Transactional
     public void 사용자_저장_조회() {
 
         // given
