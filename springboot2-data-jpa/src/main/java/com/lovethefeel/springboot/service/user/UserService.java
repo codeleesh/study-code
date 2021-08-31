@@ -1,4 +1,4 @@
-package com.lovethefeel.springboot.service;
+package com.lovethefeel.springboot.service.user;
 
 import com.lovethefeel.springboot.config.aop.LogExecutionTime;
 import com.lovethefeel.springboot.dto.user.UserSequenceRequest;
