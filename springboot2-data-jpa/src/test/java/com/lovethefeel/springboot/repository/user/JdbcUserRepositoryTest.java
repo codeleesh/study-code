@@ -22,12 +22,14 @@ public class JdbcUserRepositoryTest {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
+        int max_count = 10;
+
         List<UserRequest> userList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < max_count; i++) {
             UserRequest user = UserRequest.builder()
                     .userId("user"+i)
                     .userName("name"+i)
-                    .count(10)
+                    .count(max_count)
                     .build();
             userList.add(user);
         }
