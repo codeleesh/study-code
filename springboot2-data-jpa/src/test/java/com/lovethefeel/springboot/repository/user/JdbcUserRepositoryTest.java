@@ -13,14 +13,14 @@ import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class JdbcUserRepositoryTest {
+class JdbcUserRepositoryTest {
 
     @Autowired
     private JdbcUserRepository jdbcUserRepository;
 
     @Test
     @Transactional
-    public void 대량_저장() {
+    void 대량_저장() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
