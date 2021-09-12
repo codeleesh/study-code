@@ -6,8 +6,8 @@ import java.util.*;
 
 public class MemoryUserRepository implements UserRepository {
 
-    private final static Map<Long, UserSequence> store = new HashMap<>();
-    private static long sequence = 0L;
+    private static final Map<Long, UserSequence> store = new HashMap<>();
+    private long sequence = 0L;
 
     @Override
     public UserSequence save(UserSequence userBigSerial) {
