@@ -5,13 +5,13 @@ import lombok.Getter;
 import java.util.Random;
 
 @Getter
-public enum Sex {
+public enum Sexs {
     MALE("남성"),
     FEMALE("여성");
 
-    final private String sex;
+    private final String sex;
 
-    Sex(String sex) {
+    Sexs(String sex) {
         this.sex = sex;
     }
 
@@ -19,7 +19,7 @@ public enum Sex {
         return this.sex;
     }
 
-    public static Sex getRandom() {
-        return Sex.values()[new Random().nextInt(Sex.values().length)];
+    public static Sexs getRandom() {
+        return Sexs.values()[new Random().nextInt(Sexs.values().length)];
     }
 }
