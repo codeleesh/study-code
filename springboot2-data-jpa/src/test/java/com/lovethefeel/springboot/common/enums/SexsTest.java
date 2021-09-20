@@ -14,8 +14,7 @@ class SexsTest {
     @Test
     void getRandomValue() {
         String givenValue = Sexs.getRandom().getValue();
-        String retValue = givenValue;
-        assertThat(givenValue).isEqualTo(retValue);
+        assertThat(givenValue).isNotEmpty();
     }
 
 }
