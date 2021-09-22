@@ -1,6 +1,6 @@
 package com.lovethefeel.springboot.domain.user;
 
-import com.lovethefeel.springboot.common.enums.Sex;
+import com.lovethefeel.springboot.common.enums.Sexs;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class UserIdentity extends BaseTimeEntity {
 
     @Column
     @Enumerated
-    private Sex sex;
+    private Sexs sexs;
 
     @Column
     private BigDecimal balanceAmt;
@@ -33,9 +33,9 @@ public class UserIdentity extends BaseTimeEntity {
     private Long loanAmt;
 
     @Builder
-    public UserIdentity(String name, Sex sex, BigDecimal balanceAmt, Long loanAmt) {
+    public UserIdentity(String name, Sexs sexs, BigDecimal balanceAmt, Long loanAmt) {
         this.name = name;
-        this.sex = sex;
+        this.sexs = sexs;
         this.balanceAmt = balanceAmt;
         this.loanAmt = loanAmt;
     }
