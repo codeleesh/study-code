@@ -1,14 +1,14 @@
 package com.lovethefeel.springboot.repository.user;
 
-import com.lovethefeel.springboot.common.enums.Sex;
+import com.lovethefeel.springboot.common.enums.Sexs;
 import com.lovethefeel.springboot.domain.user.UserIdentity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.util.StopWatch;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -18,26 +18,28 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserIdentityRepositoryTest {
+class UserIdentityRepositoryTest {
 
     @Autowired
     private SpringDataJpaUserIdentityRepository springDataJpaUserIdentityRepository;
 
-    @Test
-    @Transactional
-    void stream_foreach_print1() {
-
-        // given
-        IntStream.rangeClosed(1, 200).forEach(index ->
+    @BeforeEach
+    void init() {
+        IntStream.rangeClosed(1, 10).forEach(index ->
                 springDataJpaUserIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
+                        .loanAmt((long) new SecureRandom().nextInt(100))
                         .build())
         );
+    }
+
+    @Test
+    void stream_foreach_print1() {
+
+        // given
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -48,16 +50,9 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
     void stream_foreach_print2() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -73,16 +68,9 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
-    public void stream_long_sum() {
+    void stream_long_sum() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -102,16 +90,9 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
-    public void stream_bigdecimal_sum() {
+    void stream_bigdecimal_sum() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -124,16 +105,9 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
-    public void stream_filter_count() {
+    void stream_filter_count() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -150,16 +124,9 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
-    public void stream_filter_save() {
+    void stream_filter_save() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
@@ -176,93 +143,60 @@ public class UserIdentityRepositoryTest {
     }
 
     @Test
-    @Transactional
-    public void stream_filter_grouping_save() {
+    void stream_filter_grouping_save() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .sex(Sex.getRandom())
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
-            String sex = user.getSex().getValue();
+            String sex = user.getSexs().getValue();
             System.out.println(" loanAmt : " + loanAmt + " sex : " + sex);
         });
 
-        Map<Sex, List<UserIdentity>> mapBySex = userIdentity.stream()
-                .collect(Collectors.groupingBy(UserIdentity::getSex));
+        Map<Sexs, List<UserIdentity>> mapBySex = userIdentity.stream()
+                .collect(Collectors.groupingBy(UserIdentity::getSexs));
 
         System.out.println("\n[남성]");
-        mapBySex.get(Sex.MALE)
+        mapBySex.get(Sexs.MALE)
                 .forEach(s -> System.out.print(s.getName() + " "));
         System.out.println("\n[여성]");
-        mapBySex.get(Sex.FEMALE)
+        mapBySex.get(Sexs.FEMALE)
                 .forEach(s -> System.out.print(s.getName() + " "));
     }
 
     @Test
-    @Transactional
-    public void stream_filter_grouping_average() {
+    void stream_filter_grouping_average() {
+
         // given
-        IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
-                        .name("이름"+index)
-                        .sex(Sex.getRandom())
-                        .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
-                        .loanAmt((long) new SecureRandom().nextInt(100))
-                        .build())
-        );
 
         // when
         List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
-            String sex = user.getSex().getValue();
+            String sex = user.getSexs().getValue();
             System.out.println(" loanAmt : " + loanAmt + " sex : " + sex);
         });
 
-        Map<Sex, Double> mapBySex = userIdentity.stream()
+        Map<Sexs, Double> mapBySex = userIdentity.stream()
                 .collect(
                         Collectors.groupingBy(
-                                UserIdentity::getSex,
+                                UserIdentity::getSexs,
                                 Collectors.averagingLong(UserIdentity::getLoanAmt)
                         )
                 );
 
         System.out.println("\n[남성]");
-        System.out.print(mapBySex.get(Sex.MALE) + " ");
+        System.out.print(mapBySex.get(Sexs.MALE) + " ");
         System.out.println("\n[여성]");
-        System.out.print(mapBySex.get(Sex.FEMALE) + " ");
+        System.out.print(mapBySex.get(Sexs.FEMALE) + " ");
     }
 
     @Test
-    @Transactional
-    public void 사용자_저장_조회() {
-
-        // given
-        UserIdentity userIdentity = UserIdentity.builder()
-                .name("이름")
-                .build();
-        Long id = springDataJpaUserIdentityRepository.save(userIdentity).getId();
-
-        // when
-        UserIdentity result = springDataJpaUserIdentityRepository.findById(id).orElse(null);
-        // then
-        assertThat(userIdentity).isEqualTo(result);
-    }
-
-    @Test
-    @Transactional
-    public void 대량_저장() {
+    void 대량_저장() {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
