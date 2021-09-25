@@ -1,6 +1,6 @@
 package com.lovethefeel.springboot.domain.user;
 
-import com.lovethefeel.springboot.common.enums.Sex;
+import com.lovethefeel.springboot.common.enums.Sexs;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -23,7 +23,7 @@ class UserIdentityTest {
         // given
         UserIdentity userIdentity = UserIdentity.builder()
                 .name("퐁당")
-                .sex(Sex.MALE)
+                .sexs(Sexs.MALE)
                 .loanAmt(10000L)
                 .balanceAmt(new BigDecimal("1000"))
                 .build();
@@ -31,7 +31,7 @@ class UserIdentityTest {
         String content = "{\"name\":\"퐁당\", \"sex\":\"MALE\", \"loanAmt\":10000, \"balanceAmt\":\"1000\"}";
 
         assertThat(this.userJson.parseObject(content).getName()).isEqualTo(userIdentity.getName());
-        assertThat(this.userJson.parseObject(content).getSex()).isEqualTo(userIdentity.getSex());
+        assertThat(this.userJson.parseObject(content).getSexs()).isEqualTo(userIdentity.getSexs());
         assertThat(this.userJson.parseObject(content).getLoanAmt()).isEqualTo(userIdentity.getLoanAmt());
         assertThat(this.userJson.parseObject(content).getBalanceAmt()).isEqualTo(userIdentity.getBalanceAmt());
     }
