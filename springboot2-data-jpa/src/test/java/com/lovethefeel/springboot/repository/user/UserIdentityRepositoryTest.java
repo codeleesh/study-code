@@ -23,12 +23,12 @@ import java.util.stream.Stream;
 class UserIdentityRepositoryTest {
 
     @Autowired
-    private SpringDataJpaUserIdentityRepository springDataJpaUserIdentityRepository;
+    private UserIdentityRepository userIdentityRepository;
 
     @BeforeEach
     void init() {
         IntStream.rangeClosed(1, 10).forEach(index ->
-                springDataJpaUserIdentityRepository.save(UserIdentity.builder()
+                userIdentityRepository.save(UserIdentity.builder()
                         .name("이름"+index)
                         .balanceAmt(new BigDecimal(new SecureRandom().nextInt(1000000)))
                         .loanAmt((long) new SecureRandom().nextInt(100))
@@ -42,7 +42,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
 
         // then
         Stream<UserIdentity> stream = userIdentity.stream();
@@ -55,7 +55,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
 
         // then
         Stream<UserIdentity> stream = userIdentity.stream();
@@ -73,7 +73,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
@@ -95,7 +95,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
 
         BigDecimal result = userIdentity.stream()
                 .map(UserIdentity::getBalanceAmt)
@@ -110,7 +110,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
@@ -129,7 +129,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
@@ -148,7 +148,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
@@ -173,7 +173,7 @@ class UserIdentityRepositoryTest {
         // given
 
         // when
-        List<UserIdentity> userIdentity = springDataJpaUserIdentityRepository.findAll();
+        List<UserIdentity> userIdentity = userIdentityRepository.findAll();
         Stream<UserIdentity> stream = userIdentity.stream();
         stream.forEach(user -> {
             Long loanAmt = user.getLoanAmt();
@@ -206,7 +206,7 @@ class UserIdentityRepositoryTest {
             UserIdentity userIdentity = new UserIdentity();
             userIdentityList.add(userIdentity);
         }
-        springDataJpaUserIdentityRepository.saveAll(userIdentityList);
+        userIdentityRepository.saveAll(userIdentityList);
 
         stopWatch.stop();
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
