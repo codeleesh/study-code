@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @Entity(name = "TN_USER_IDENTITY")
-public class UserIdentity extends BaseTimeEntity {
+public class UserIdentity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

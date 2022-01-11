@@ -1,6 +1,7 @@
 package com.lovethefeel.springboot.repository.user;
 
 import com.lovethefeel.springboot.domain.user.UserSequence;
+import com.lovethefeel.springboot.repository.usersequence.UserSequenceRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,36 +9,33 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.util.StopWatch;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserSequenceRepositoryTest {
+class UserSequenceRepositoryTest {
 
     @Autowired
-    private SpringDataJpaUserSequenceRepository springDataJpaUserSequenceRepository;
+    private UserSequenceRepository userSequenceRepository;
 
     @Test
-    @Transactional
-    public void 사용자_저장_조회() {
+    void 사용자_저장_조회() {
 
         // given
         UserSequence userSequence = UserSequence.builder()
                 .name("이름")
                 .build();
-        Long id = springDataJpaUserSequenceRepository.save(userSequence).getId();
+        Long id = userSequenceRepository.save(userSequence).getId();
 
         // when
-        UserSequence result = springDataJpaUserSequenceRepository.findById(id).orElse(null);
+        UserSequence result = userSequenceRepository.findById(id).orElse(null);
         // then
         Assertions.assertThat(userSequence).isEqualTo(result);
     }
 
     @Test
-    @Transactional
-    public void 대량_저장() {
+    void 대량_저장() {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -47,7 +45,7 @@ public class UserSequenceRepositoryTest {
             UserSequence userSequence = new UserSequence();
             userSequenceList.add(userSequence);
         }
-        springDataJpaUserSequenceRepository.saveAll(userSequenceList);
+        userSequenceRepository.saveAll(userSequenceList);
 
         stopWatch.stop();
         long totalTimeMillis = stopWatch.getTotalTimeMillis();

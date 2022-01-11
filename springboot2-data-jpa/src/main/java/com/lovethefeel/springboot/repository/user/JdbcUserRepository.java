@@ -36,9 +36,9 @@ public class JdbcUserRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setInt(1, userList.get(i).getCount());
-                        ps.setString(2, userList.get(i).getUserId());
-                        ps.setString(3, userList.get(i).getUserName());
+                        ps.setString(1, userList.get(i).getName());
+                        ps.setString(2, userList.get(i).getSex());
+                        ps.setBigDecimal(3, userList.get(i).getBalanceAmt());
                     }
 
                     @Override

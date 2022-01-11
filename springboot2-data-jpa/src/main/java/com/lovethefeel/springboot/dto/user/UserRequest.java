@@ -1,30 +1,24 @@
 package com.lovethefeel.springboot.dto.user;
 
-import com.lovethefeel.springboot.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @NoArgsConstructor
 public class UserRequest {
-    private String userId;
-    private String userName;
-    private int count;
+    private String name;
+    private String sex;
+    private BigDecimal balanceAmt;
+    private Long loanAmt;
 
     @Builder
-    public UserRequest(String userId, String userName, Integer count){
-        this.userId = userId;
-        this.userName = userName;
-        this.count = count;
+    public UserRequest(String name, String sex, BigDecimal balanceAmt, Long loanAmt){
+        this.name = name;
+        this.sex = sex;
+        this.balanceAmt = balanceAmt;
+        this.loanAmt = loanAmt;
     }
-
-    public User toEntity() {
-        return User.builder()
-                .userId(userId)
-                .userName(userName)
-                .count(count)
-                .build();
-    }
-
 }

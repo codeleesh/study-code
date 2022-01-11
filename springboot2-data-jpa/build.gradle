@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.5.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // (1)  querydsl 플러그인을 추가합니다.
     id 'java'
 }
 
@@ -22,14 +23,36 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa' // (2) 라이브러리 dependency를 추가합니다.
     implementation 'org.postgresql:postgresql'
+
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
     useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl" // (3)
+
+querydsl { // (4)
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets { // (5)
+    main.java.srcDir querydslDir
+}
+
+configurations { // (6)
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl { // (7)
+    options.annotationProcessorPath = configurations.querydsl
 }
