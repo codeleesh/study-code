@@ -1,0 +1,6 @@
+PUT http://localhost:8080/book/6
+Content-Type: application/json
+
+{
+  "name" : "클린코드"
+}
