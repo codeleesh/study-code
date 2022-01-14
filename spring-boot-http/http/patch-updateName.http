@@ -1,6 +1,6 @@
-PATCH http://localhost:8080/book/6
+PATCH http://localhost:8080/book/5
 Content-Type: application/json
 
 {
-  "name" : "클린코드"
+  "price" : "40000"
 }

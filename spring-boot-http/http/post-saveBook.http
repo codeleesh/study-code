@@ -2,5 +2,6 @@ POST http://localhost:8080/book
 Content-Type: application/json
 
 {
-  "name": "자바의정석"
+  "name": "함께자라기",
+  "price": 15000
 }
