@@ -1,11 +1,7 @@
 package com.lovethefeel.http.ui;
 
 import com.lovethefeel.http.application.BookService;
-import com.lovethefeel.http.dto.BookChangeRequest;
-import com.lovethefeel.http.dto.BookNameChangeReuqest;
-import com.lovethefeel.http.dto.BookRequest;
-import com.lovethefeel.http.dto.BookResponse;
-import lombok.AllArgsConstructor;
+import com.lovethefeel.http.dto.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,10 +9,13 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 public class BookContoller {
 
     private final BookService bookService;
+
+    public BookContoller(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping("book")
     public ResponseEntity<BookResponse> saveBook(@RequestBody final BookRequest bookRequest) {
@@ -26,13 +25,16 @@ public class BookContoller {
 
     @PutMapping("book/{id}")
     public ResponseEntity<Void> updateBook(@PathVariable final Long id, @RequestBody final BookChangeRequest bookChangeRequest) {
-        bookService.changeBook(id, bookChangeRequest);
-        return ResponseEntity.ok().build();
+        final BookResponse bookResponse = bookService.changeBook(id, bookChangeRequest);
+        if (id.equals(bookResponse.getId())) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.created(URI.create("/book/" + bookResponse.getId())).build();
     }
 
     @PatchMapping("book/{id}")
-    public ResponseEntity<BookResponse> updateName(@PathVariable final Long id, @RequestBody final BookNameChangeReuqest bookNameChangeReuqest) {
-        final BookResponse bookResponse = bookService.changeNameBook(id, bookNameChangeReuqest);
+    public ResponseEntity<BookResponse> updatePrice(@PathVariable final Long id, @RequestBody final BookPriceChangeReuqest bookPriceChangeReuqest) {
+        final BookResponse bookResponse = bookService.changePriceBook(id, bookPriceChangeReuqest);
         return ResponseEntity.ok(bookResponse);
     }
 
@@ -45,6 +47,12 @@ public class BookContoller {
     @GetMapping("book/{id}")
     public ResponseEntity<BookResponse> findBook(@PathVariable final Long id) {
         final BookResponse bookResponse = bookService.findBook(id);
+        return ResponseEntity.ok(bookResponse);
+    }
+
+    @GetMapping("book")
+    public ResponseEntity<BookResponse> findBookByIdAndName(@RequestParam final Long id, @RequestParam final String name) {
+        final BookResponse bookResponse = bookService.findBookByIdAndName(id, name);
         return ResponseEntity.ok(bookResponse);
     }
 
