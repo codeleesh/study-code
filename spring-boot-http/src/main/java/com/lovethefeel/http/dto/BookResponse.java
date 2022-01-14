@@ -9,20 +9,22 @@ public class BookResponse {
 
     private Long id;
     private String name;
+    private long price;
 
     protected BookResponse() {}
 
-    private BookResponse(final Long id, final String name) {
+    private BookResponse(final Long id, final String name, final long price) {
         this.id = id;
         this.name = name;
+        this.price = price;
     }
 
-    public static BookResponse of(final Long id, final String name) {
-        return new BookResponse(id, name);
+    public static BookResponse of(final Long id, final String name, final long price) {
+        return new BookResponse(id, name, price);
     }
 
     public static BookResponse from(final Book book) {
-        return new BookResponse(book.getId(), book.getName());
+        return new BookResponse(book.getId(), book.getName(), book.getPrice());
     }
 
     public static List<BookResponse> from(final List<Book> books) {
@@ -45,5 +47,13 @@ public class BookResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 }
