@@ -27,4 +27,11 @@ public class BookNameChangeReuqest {
     public Book toBook() {
         return Book.from(name);
     }
+
+    @Override
+    public String toString() {
+        return "BookNameChangeReuqest{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
