@@ -2,6 +2,7 @@ package com.lovethefeel.springboot.application;
 
 import com.lovethefeel.springboot.domain.Book;
 import com.lovethefeel.springboot.domain.BookRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,10 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BookMemoryService {
 
     private final BookRepository bookRepository;
-
-    public BookMemoryService(final BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     private List<Book> books = new ArrayList<>();
 
