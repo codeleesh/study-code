@@ -2,6 +2,7 @@ package com.lovethefeel.springboot.ui;
 
 import com.lovethefeel.springboot.application.BookService;
 import com.lovethefeel.springboot.domain.Book;
+import com.lovethefeel.springboot.dto.BookResponse;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @WebFluxTest(controllers = BookContoller.class)
@@ -28,7 +29,7 @@ class BookConrollerTest {
     @Test
     void 캐시_책_한권_조회() {
         // given
-        given(bookService.findBook()).willReturn(Mono.just(Book.of(1L, "자바의정석")));
+        given(bookService.findBook(anyLong())).willReturn(BookResponse.from(Book.of(1L, "자바의정석")));
 
         // when-then
         this.webTestClient.get().uri("/book")
@@ -47,7 +48,7 @@ class BookConrollerTest {
         final Book book4 = Book.of(4L, "자바의정석");
         final List<Book> books = Lists.newArrayList(book1, book2, book3, book4);
 
-        given(bookService.findBookAll()).willReturn(Mono.just(books));
+        given(bookService.findBookAll()).willReturn(BookResponse.from(books));
 
         // when-then
         this.webTestClient.get().uri("/books")
@@ -55,5 +56,4 @@ class BookConrollerTest {
                 .expectStatus().isOk()
                 .expectBodyList(Book.class);
     }
-
 }
