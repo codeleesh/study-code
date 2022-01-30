@@ -1,6 +1,8 @@
 package com.lovethefeel.springboot.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,15 +11,14 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "book")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bookId")
     private Long id;
     @Column
     private String name;
-
-    protected Book() {
-    }
 
     private Book(final Long id, final String name) {
         this.id = id;
@@ -26,6 +27,14 @@ public class Book {
 
     public static Book of(final Long id, final String name) {
         return new Book(id, name);
+    }
+
+    public static Book from(final String name) {
+        return new Book(null, name);
+    }
+
+    public void updateName(final String name) {
+        this.name = name;
     }
 
     @Override
