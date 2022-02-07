@@ -27,15 +27,13 @@ public class FindNumberswithEvenNumberofDigits {
     }
 
     public static void main(String[] args) {
-        int[] numArrays = {12,345,2,6,7896};
-
-        FindNumberswithEvenNumberofDigits fnend = new FindNumberswithEvenNumberofDigits();
-        long beforeTime = System.currentTimeMillis();
-        int result = fnend.findNumbers(numArrays);
-        long afterTime = System.currentTimeMillis();
+        final int[] numArrays = {12,345,2,6,7896};
+        final FindNumberswithEvenNumberofDigits fnend = new FindNumberswithEvenNumberofDigits();
+        final long beforeTime = System.currentTimeMillis();
+        final int result = fnend.findNumbers(numArrays);
+        final long afterTime = System.currentTimeMillis();
         System.out.println("결과 = " + result);
         System.out.println("수행시간 = " + (afterTime - beforeTime));
-
 
         // 1
         System.out.println((int) Math.log10(10));

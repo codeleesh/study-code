@@ -35,12 +35,11 @@ public class MaxConsecutiveOnes {
     }
 
     public static void main(String[] args) {
-        int[] numArrays = {1, 1, 0, 1, 1, 1};
-
+        final int[] numArrays = {1, 1, 0, 1, 1, 1};
         MaxConsecutiveOnes maxConsecutiveOnes = new MaxConsecutiveOnes();
-        long beforeTime = System.currentTimeMillis();
-        int result = maxConsecutiveOnes.findMaxConsecutiveOnes(numArrays);
-        long afterTime = System.currentTimeMillis();
+        final long beforeTime = System.currentTimeMillis();
+        final int result = maxConsecutiveOnes.findMaxConsecutiveOnes(numArrays);
+        final long afterTime = System.currentTimeMillis();
         System.out.println("결과 = " + result);
         System.out.println("수행시간 = " + (afterTime - beforeTime));
     }
