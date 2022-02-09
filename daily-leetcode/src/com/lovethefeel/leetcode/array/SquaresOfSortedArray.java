@@ -1,6 +1,5 @@
-package com.lovethefeel.leetcode.day01.array;
+package com.lovethefeel.leetcode.array;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

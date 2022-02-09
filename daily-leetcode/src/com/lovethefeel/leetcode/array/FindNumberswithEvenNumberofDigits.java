@@ -1,4 +1,4 @@
-package com.lovethefeel.leetcode.day01.array;
+package com.lovethefeel.leetcode.array;
 
 public class FindNumberswithEvenNumberofDigits {
 
