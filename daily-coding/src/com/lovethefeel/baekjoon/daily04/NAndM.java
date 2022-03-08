@@ -1,15 +1,15 @@
-package com.lovethefeel.baekjoon.daily01;
+package com.lovethefeel.baekjoon.daily04;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * - N개 중 중복을 허용해서
- *   - M개를 순서 있게 나열하기
+ * - N개 중 중복없이
+ *   - M개를 고르기
  *
- * [N과 M(3)](https://www.acmicpc.net/problem/15651)
+ * [N과 M (2)](https://www.acmicpc.net/problem/15650)
  */
-public class Main {
+public class NAndM {
     static StringBuilder sb = new StringBuilder();
 
     static class FastReader {
@@ -78,11 +78,13 @@ public class Main {
             }
             sb.append('\n');
         } else {
-            // 1~N 까지를 k 번 원소로 한 번씩 정하고,
-            // 매번 k+1 번부터 M 번 원소로 재귀호출 해주기
-            for (int cand = 1; cand <= N; cand++) {
+            int start = selected[k-1];
+            if (start == 0) {
+                start = 1;
+            }
+            for (int cand = start; cand <= N; cand++) {
                 selected[k] = cand;
-                rec_func(k+1);
+                rec_func(k + 1);
                 selected[k] = 0;
             }
         }

@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
  *
  * [N과 M (3)](https://www.acmicpc.net/problem/15652)
  */
-public class Main {
+public class NAndM {
     static StringBuilder sb = new StringBuilder();
 
     static class FastReader {
