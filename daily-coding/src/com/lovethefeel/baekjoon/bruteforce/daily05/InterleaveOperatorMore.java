@@ -1,8 +1,11 @@
-package com.lovethefeel.baekjoon.daily05;
+package com.lovethefeel.baekjoon.bruteforce.daily05;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
+/**
+ * [연산자 끼워넣기](https://www.acmicpc.net/problem/14888)
+ */
 public class InterleaveOperatorMore {
     static StringBuilder sb = new StringBuilder();
 

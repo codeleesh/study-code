@@ -1,15 +1,12 @@
-package com.lovethefeel.baekjoon.daily01;
+package com.lovethefeel.baekjoon.bruteforce.daily07;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * - N개 중 중복을 허용해서
- *   - M개를 순서 있게 나열하기
- *
- * [N과 M(3)](https://www.acmicpc.net/problem/15651)
+ * [부분 수열의 합](https://www.acmicpc.net/problem/1182)
  */
-public class NAndM {
+public class SumOfSubsequences {
     static StringBuilder sb = new StringBuilder();
 
     static class FastReader {
@@ -58,40 +55,44 @@ public class NAndM {
         }
     }
 
-    static int N, M;
-    static int[] selected;
+    static int N, S, ans;
+    static int[] nums;
 
     static void input() {
         FastReader scan = new FastReader();
         N = scan.nextInt();
-        M = scan.nextInt();
-        selected = new int[M + 1];
+        S = scan.nextInt();
+        nums = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            nums[i] = scan.nextInt();
+        }
     }
 
-    // Recurrence Function (재귀 함수)
-    // 만약 M개를 전부 고름 -> 조건에 맞는 탐색을 한 가지 성공한 것
-    // 아직 M개를 고르지 않음 -> k 번째부터 M번째 원소를 조건에 맞게 고르는 모든 방법을 시도한다.
-    static void rec_func(int k) {
-        if (k == M + 1) {
-            for (int i = 1; i <= M; i++) {
-                sb.append(selected[i]).append(' ');
+    // k번째 원소를 포함시킬지 정하는 함수
+    // value := k-1 번째 원소까지 골라진 원소들의 합
+    static void rec_func(int k, int value) {
+        if (k == N + 1) { // 부분 수열을 하나 완성시킨 상태
+            // value가 S랑 같은지 확인하기
+            if (value == S) {
+                ans++;
             }
-            sb.append('\n');
         } else {
-            // 1~N 까지를 k 번 원소로 한 번씩 정하고,
-            // 매번 k+1 번부터 M 번 원소로 재귀호출 해주기
-            for (int cand = 1; cand <= N; cand++) {
-                selected[k] = cand;
-                rec_func(k+1);
-                selected[k] = 0;
-            }
+            // k 번째 원소를 포함시킬지 결정하고 재귀호출해주기
+            // Include
+            rec_func(k + 1, value + nums[k]);
+            // Not Include
+            rec_func(k + 1, value);
         }
     }
 
     public static void main(String[] args) {
         input();
-
-        rec_func(1);
-        System.out.println("sb = " + sb.toString());
+        // 1 번째 원소부터 M 번째 원소를 조건에 맞게 고르는 모든 방법을 탐색해줘
+        rec_func(1, 0);
+        // ans 가 정말 " 부분집합"만 다루는 지 확인하기
+        if (S == 0) {
+            ans--;
+        }
+        System.out.println("ans = " + ans);
     }
 }

@@ -1,8 +1,11 @@
-package com.lovethefeel.baekjoon.daily06;
+package com.lovethefeel.baekjoon.bruteforce.daily06;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
+/**
+ * [N-Queen](https://www.acmicpc.net/problem/9663)
+ */
 public class NQueen {
     static StringBuilder sb = new StringBuilder();
 

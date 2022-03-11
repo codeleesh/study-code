@@ -1,4 +1,4 @@
-package com.lovethefeel.baekjoon.daily03;
+package com.lovethefeel.baekjoon.bruteforce.daily03;
 
 import java.io.*;
 import java.util.StringTokenizer;

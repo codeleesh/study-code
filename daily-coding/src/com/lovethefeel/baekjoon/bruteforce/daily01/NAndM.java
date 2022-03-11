@@ -1,13 +1,13 @@
-package com.lovethefeel.baekjoon.daily02;
+package com.lovethefeel.baekjoon.bruteforce.daily01;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
 /**
- * - N개 중 중복없이
+ * - N개 중 중복을 허용해서
  *   - M개를 순서 있게 나열하기
  *
- * [N과 M (1)](https://www.acmicpc.net/problem/15649)
+ * [N과 M(3)](https://www.acmicpc.net/problem/15651)
  */
 public class NAndM {
     static StringBuilder sb = new StringBuilder();
@@ -59,7 +59,7 @@ public class NAndM {
     }
 
     static int N, M;
-    static int[] selected, used;
+    static int[] selected;
 
     static void input() {
         FastReader scan = new FastReader();
@@ -80,27 +80,10 @@ public class NAndM {
         } else {
             // 1~N 까지를 k 번 원소로 한 번씩 정하고,
             // 매번 k+1 번부터 M 번 원소로 재귀호출 해주기
-//            for (int cand = 1; cand <= N; cand++) {
-//                boolean isUsed = false;
-//                for (int i = 1; i < k; i++) {
-//                    if (cand == selected[i]) {
-//                        isUsed = true;
-//                    }
-//                }
-//                if (!isUsed) {
-//                    selected[k] = cand;
-//                    rec_func(k + 1);
-//                    selected[k] = 0;
-//                }
-//            }
             for (int cand = 1; cand <= N; cand++) {
-                if (used[cand] == 1) continue;
                 selected[k] = cand;
-                used[cand] = 1;
-
-                rec_func(k + 1);
+                rec_func(k+1);
                 selected[k] = 0;
-                used[cand] = 0;
             }
         }
     }
