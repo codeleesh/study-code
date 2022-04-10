@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookShelfTest {
 
     private Book 자바의정석 = Book.of("1", "자바의정석");
-    private Book 클린코드 = Book.of("1", "클린코드");
+    private Book 클린코드 = Book.of("2", "클린코드");
     private Book 이펙티브자바 = Book.of("3", "이펙티브자바");
     private BookShelf bookShelf;
 
@@ -73,7 +73,7 @@ class BookShelfTest {
     }
 
     @Test
-    void 스택_리스트_변환() {
+    void 리스트_변환() {
         // given, when
         List<Book> listItems = bookShelf.list();
 
@@ -82,7 +82,7 @@ class BookShelfTest {
     }
 
     @Test
-    void 더이상_삭제할_데이터가_없을_경우() {
+    void 더이상_제거할_도서가_없음() {
         // given, when
         BookShelf empty = BookShelf.init();
 
