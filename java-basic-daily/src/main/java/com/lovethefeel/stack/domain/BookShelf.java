@@ -8,6 +8,7 @@ import java.util.Stack;
 public class BookShelf {
 
     public static final int NON_EXIST_ITEM = -1;
+    
     private Stack<Book> bookShelfs;
 
     private BookShelf(final Stack<Book> bookShelfs) {
