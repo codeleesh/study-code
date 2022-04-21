@@ -1,0 +1,101 @@
+pipeline {
+    agent any
+
+    environment {
+        SSH = 'user@localhost'
+        GRADLE_HOME = '${GRADLE_HOME}'
+        BUILD_TARGET_HOME = '${BUILD_HOME}'
+        APP_ADMIN = 'app-admin'
+        DOMAIN_MODULE = 'domain-module'
+    }
+
+    stages {
+        stage('Build') {
+            parallel {
+                stage('build-application-admin') {
+                    when {
+                        anyOf {
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Build Start "${APP_ADMIN}"'
+                        sh './gradlew --gradle-user-home ${GRADLE_HOME} ${APP_ADMIN}:clea ${APP_ADMIN}:build -x test'
+                        echo 'Build End "${APP_ADMIN}"'
+                    }
+                }
+                stage('build-domain-module') {
+                    when {
+                        anyOf {
+                            changeset "domain-module/**/*"
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Build Start "${DOMAIN_MODULE}"'
+                        sh './gradlew --gradle-user-home ${GRADLE_HOME} ${DOMAIN_MODULE}:clea ${DOMAIN_MODULE}:build -x test'
+                        echo 'Build End "${DOMAIN_MODULE}"'
+                    }
+                }
+            }
+        }
+        stage('Backup & Copy') {
+            parallel {
+                stage('back-copy-application-admin') {
+                    when {
+                        anyOf {
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Backup & Copy Start "${APP_ADMIN}"'
+                        sh 'ssh ${SSH} "${BUILD_HOE}/backup_copy.sh ${APP_ADMIN}"'
+                        echo 'Backup & Copy End "${APP_ADMIN}"'
+                    }
+                }
+                stage('back-copy-domain-module') {
+                    when {
+                        anyOf {
+                            changeset "domain-module/**/*"
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Backup & Copy Start "${DOMAIN_MODULE}"'
+                        sh 'ssh ${SSH} "${BUILD_HOE}/backup_copy.sh ${APP_ADMIN}"'
+                        echo 'Backup & Copy End "${DOMAIN_MODULE}"'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            parallel {
+                stage('deploy-application-admin') {
+                    when {
+                        anyOf {
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Deploy Start "${APP_ADMIN}"'
+                        sh '.ssh ${SSH} "${BUILD_HOME}/${APP_ADMIN}/script/${APP_ADMIN}.sh restart"'
+                        echo 'Deploy End "${APP_ADMIN}"'
+                    }
+                }
+                stage('deploy-domain-module') {
+                    when {
+                        anyOf {
+                            changeset "domain-module/**/*"
+                            changeset "app-admin/**/*"
+                        }
+                    }
+                    steps {
+                        echo 'Deploy Start "${DOMAIN_MODULE}"'
+                        sh '.ssh ${SSH} "${BUILD_HOME}/${DOMAIN_MODULE}/script/${DOMAIN_MODULE}.sh restart"'
+                        echo 'Deploy End "${DOMAIN_MODULE}"'
+                    }
+                }
+            }
+        }
+    }
+}
