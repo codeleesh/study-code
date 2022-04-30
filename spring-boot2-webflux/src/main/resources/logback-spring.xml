@@ -1,0 +1,39 @@
+<configuration>
+
+    <contextName>myAppName</contextName>
+    <property name="LOG_HOME" value="./logs" />
+    <property name="LOG_FILE" value="logFile.log" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="local">
+        <root level="DEBUG" additivity="false">
+            <appender-ref ref="FILE" />
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod" additivity="false">
+        <root level="ERROR">
+            <appender-ref ref="FILE" />
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+</configuration>
