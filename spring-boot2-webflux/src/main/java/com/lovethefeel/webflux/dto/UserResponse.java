@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lovethefeel.webflux.domain.MobilePhone;
 import com.lovethefeel.webflux.domain.Sex;
 import com.lovethefeel.webflux.domain.User;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static lombok.AccessLevel.*;
+import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PRIVATE)
@@ -39,5 +39,16 @@ public class UserResponse {
     public static UserResponse from(final Long id, final String userId, final String userName, final Sex sex, final MobilePhone mobilePhone) {
         MobilePhoneResponse mobilePhoneResponse = MobilePhoneResponse.of(mobilePhone);
         return new UserResponse(id, userId, userName, sex, mobilePhoneResponse);
+    }
+
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", sex=" + sex +
+                ", mobilePhone=" + mobilePhone +
+                '}';
     }
 }
