@@ -9,15 +9,11 @@ import com.lovethefeel.webflux.dto.UserResponse;
 import com.lovethefeel.webflux.fixture.TestUserFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.reactive.function.BodyInserters;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -25,9 +21,6 @@ import static org.mockito.BDDMockito.given;
 
 @WebFluxTest(UserController.class)
 class UserControllerTest {
-
-    @Autowired
-    private WebApplicationContext wac;
 
     @Autowired
     private WebTestClient webTestClient;
@@ -48,6 +41,19 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(사용자요청))
                 .exchange()
-                .expectStatus().isCreated();
+                .expectAll(
+                        responseSpec -> responseSpec.expectStatus().isCreated(),
+                        responseSpec -> responseSpec.expectHeader().contentType(MediaType.APPLICATION_JSON)
+                )
+                .expectBody()
+                .jsonPath("$.id").isEqualTo(1L)
+                .jsonPath("$.user_id").isEqualTo("test")
+                .jsonPath("$.user_name").isEqualTo("test")
+                .jsonPath("$.sex").isEqualTo("MALE")
+                .jsonPath("$.mobile_phone").isNotEmpty()
+                .jsonPath("$.mobile_phone.mobile_agency").isEqualTo("SK")
+                .jsonPath("$.mobile_phone.phone1").isEqualTo("010")
+                .jsonPath("$.mobile_phone.phone2").isEqualTo("1111")
+                .jsonPath("$.mobile_phone.phone3").isEqualTo("2222");
     }
 }
