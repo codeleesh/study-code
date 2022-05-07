@@ -19,7 +19,10 @@ public class UserService {
 
     @Transactional
     public UserResponse saveUser(final UserRequest userRequest) {
+        log.info("saveUser - userRequest [{}]", userRequest);
         final User saveUser = userRepository.save(userRequest.toEntity());
-        return UserResponse.of(saveUser);
+        UserResponse userResponse = UserResponse.of(saveUser);
+        log.info("saveUser - userResponse [{}]", userResponse);
+        return userResponse;
     }
 }
