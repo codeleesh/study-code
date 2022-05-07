@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -39,6 +41,19 @@ public class UserResponse {
     public static UserResponse from(final Long id, final String userId, final String userName, final Sex sex, final MobilePhone mobilePhone) {
         MobilePhoneResponse mobilePhoneResponse = MobilePhoneResponse.of(mobilePhone);
         return new UserResponse(id, userId, userName, sex, mobilePhoneResponse);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserResponse that = (UserResponse) o;
+        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(userName, that.userName) && sex == that.sex && Objects.equals(mobilePhone, that.mobilePhone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, userName, sex, mobilePhone);
     }
 
     @Override
