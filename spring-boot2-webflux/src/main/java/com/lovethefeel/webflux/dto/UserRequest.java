@@ -44,4 +44,17 @@ public class UserRequest {
         final MobilePhone mobilePhone = MobilePhone.from(this.mobileAgency, this.phone1, this.phone2, this.phone3);
         return User.from(this.userId, this.userName, this.sex, mobilePhone);
     }
+
+    @Override
+    public String toString() {
+        return "UserRequest{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", sex=" + sex +
+                ", mobileAgency=" + mobileAgency +
+                ", phone1='" + phone1 + '\'' +
+                ", phone2='" + phone2 + '\'' +
+                ", phone3='" + phone3 + '\'' +
+                '}';
+    }
 }
