@@ -1,12 +1,12 @@
 spring:
   profiles:
-    active: local
+    active: test
 
 ---
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
 
   jpa:
     show-sql: true
