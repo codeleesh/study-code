@@ -1,21 +1,19 @@
 <configuration>
 
     <!-- spirng boot의 기본 logback base.xml은 그대로 이용한다. -->
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
+<!--    <include resource="org/springframework/boot/logging/logback/base.xml" />-->
     <include resource="console-appender.xml" />
     <include resource="file-appender.xml" />
     <include resource="json-appender.xml" />
 
     <springProfile name="local">
-<!--        <logger name="console" level="INFO" >-->
-<!--            <appender-ref ref="console" />-->
-<!--        </logger>-->
 
 <!--        <logger name="file" level="INFO" >-->
 <!--            <appender-ref ref="file" />-->
 <!--        </logger>-->
         <root level="INFO" additivity="true">
             <appender-ref ref="file" />
+            <appender-ref ref="console" />
         </root>
 
         <!-- logger name이 json일때 적용할 appender를 등록한다.-->
