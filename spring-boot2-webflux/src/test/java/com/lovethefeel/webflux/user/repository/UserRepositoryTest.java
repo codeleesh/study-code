@@ -1,15 +1,13 @@
-package com.lovethefeel.webflux.repository;
+package com.lovethefeel.webflux.user.repository;
 
-import com.lovethefeel.webflux.domain.MobileAgency;
-import com.lovethefeel.webflux.domain.MobilePhone;
-import com.lovethefeel.webflux.domain.Sex;
-import com.lovethefeel.webflux.domain.User;
+import com.lovethefeel.webflux.user.domain.MobileAgency;
+import com.lovethefeel.webflux.user.domain.MobilePhone;
+import com.lovethefeel.webflux.user.domain.Sex;
+import com.lovethefeel.webflux.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,12 +1,12 @@
-package com.lovethefeel.webflux.ui;
+package com.lovethefeel.webflux.user.ui;
 
-import com.lovethefeel.webflux.application.UserService;
-import com.lovethefeel.webflux.domain.MobileAgency;
-import com.lovethefeel.webflux.domain.MobilePhone;
-import com.lovethefeel.webflux.domain.Sex;
-import com.lovethefeel.webflux.dto.UserRequest;
-import com.lovethefeel.webflux.dto.UserResponse;
 import com.lovethefeel.webflux.fixture.TestUserFactory;
+import com.lovethefeel.webflux.user.application.UserService;
+import com.lovethefeel.webflux.user.domain.MobileAgency;
+import com.lovethefeel.webflux.user.domain.MobilePhone;
+import com.lovethefeel.webflux.user.domain.Sex;
+import com.lovethefeel.webflux.user.dto.UserRequest;
+import com.lovethefeel.webflux.user.dto.UserResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +31,15 @@ class UserControllerTest {
     @DisplayName("사용자 등록한다.")
     @Test
     void createUserTest() {
-        final UserRequest 사용자요청 = TestUserFactory.사용자_요청("test", "test", Sex.MALE, MobileAgency.SK, "010", "1111", "2222");
-        final UserResponse 사용자응답 = TestUserFactory.사용자_응답(1L, "test", "test", Sex.MALE, MobilePhone.from(MobileAgency.SK, "010", "1111", "2222"));
+        final UserRequest 사용자_요청 = TestUserFactory.사용자_등록_요청("test", "test", Sex.MALE, MobileAgency.SK, "010", "1111", "2222");
+        final UserResponse 사용자_응답 = TestUserFactory.사용자_등록_응답(1L, "test", "test", Sex.MALE, MobilePhone.from(MobileAgency.SK, "010", "1111", "2222"));
 
         given(this.userService.saveUser(any()))
-                .willReturn(사용자응답);
+                .willReturn(사용자_응답);
 
         this.webTestClient.post().uri("/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(사용자요청))
+                .body(BodyInserters.fromValue(사용자_요청))
                 .exchange()
                 .expectAll(
                         responseSpec -> responseSpec.expectStatus().isCreated(),
