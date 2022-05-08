@@ -1,8 +1,8 @@
-package com.lovethefeel.webflux.ui;
+package com.lovethefeel.webflux.user.ui;
 
-import com.lovethefeel.webflux.application.UserService;
-import com.lovethefeel.webflux.dto.UserRequest;
-import com.lovethefeel.webflux.dto.UserResponse;
+import com.lovethefeel.webflux.user.application.UserService;
+import com.lovethefeel.webflux.user.dto.UserRequest;
+import com.lovethefeel.webflux.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

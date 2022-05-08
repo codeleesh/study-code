@@ -1,8 +1,8 @@
-package com.lovethefeel.webflux.dto;
+package com.lovethefeel.webflux.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lovethefeel.webflux.domain.MobileAgency;
-import com.lovethefeel.webflux.domain.MobilePhone;
+import com.lovethefeel.webflux.user.domain.MobileAgency;
+import com.lovethefeel.webflux.user.domain.MobilePhone;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

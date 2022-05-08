@@ -1,4 +1,4 @@
-package com.lovethefeel.webflux.domain;
+package com.lovethefeel.webflux.user.domain;
 
 import lombok.Getter;
 

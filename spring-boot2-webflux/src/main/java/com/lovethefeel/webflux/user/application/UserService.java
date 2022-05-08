@@ -1,9 +1,9 @@
-package com.lovethefeel.webflux.application;
+package com.lovethefeel.webflux.user.application;
 
-import com.lovethefeel.webflux.domain.User;
-import com.lovethefeel.webflux.dto.UserRequest;
-import com.lovethefeel.webflux.dto.UserResponse;
-import com.lovethefeel.webflux.repository.UserRepository;
+import com.lovethefeel.webflux.user.domain.User;
+import com.lovethefeel.webflux.user.dto.UserRequest;
+import com.lovethefeel.webflux.user.dto.UserResponse;
+import com.lovethefeel.webflux.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
