@@ -1,0 +1,54 @@
+stages:
+  - build
+  - deploy
+  - sonar
+
+variables:
+  DOCKER_REGISTRY: # docker registry url
+
+sonarqube-check:
+  stage: sonar
+  variables:
+    SONAR_TOKEN: # sonar_token
+    SONAR_HOST_URL: # sonar_url
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: ./gradlew sonarqube -Dsonar.qualitygate.wait=true
+  allow_failure: false
+  only:
+    - develop
+
+build-service:
+  stage: build
+  variables:
+    SERVICE_NAME: 'api-service'
+    IMAGE_NAME: 'home/$SERVICE_NAME:$CI_COMMIT_BRANCH'
+  only:
+    changes:
+      - api-common/**/*
+      - api-service/**/*
+  script:
+    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - cd "$SERVICE_NAME
+    - ../gradlew build -x test
+    - docker build -t "$IMAGE_NAME" .
+    - docker tag "$IMAGE_NAME" "$DOCKER_REGISTRY"/"$IMAGENAME"
+    - docker push "$DOCKER_REGISTRY"/"$IMAGE_NAME"
+
+deploy-service:
+  stage: deploy
+  variables:
+    SERVICE_NAME: 'api-service'
+  only:
+    refs:
+      - develop
+    changes:
+      - api-common/**/*
+      - api-service/**/*
+  script:
+    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - kubectl delete pod -l app="$SERVICE_NAME"
