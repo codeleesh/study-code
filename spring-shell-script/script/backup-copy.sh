@@ -25,7 +25,7 @@ order() {
 
 	cp ${SOURCE_HOME}/${SERVICE_ORDER}/order.jar ${SOURCE_HOME}/${SERVICE_ORDER}/backup/jar/order.jar.${TODAY}
 	cp -r ${SOURCE_HOME}/${SERVICE_ORDER}/config ${SOURCE_HOME}/${SERVICE_ORDER}/backup/config/config.${TODAY}
-	cp ${TARGET_HOME}/order.jar ${SOURCE_HOME}/order
+	cp ${TARGET_HOME}/order.jar ${SOURCE_HOME}/${SERVICE_ORDER}
 
 	echoGreen "Result: Backup & Copy success"
   echo $'\n\n\n'
