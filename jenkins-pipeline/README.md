@@ -484,10 +484,12 @@ parallel {
 
 #### `echo`
 
+- single-quotes를 사용합니다.
+- 해당 내용을 출력할 수 있습니다.
 
 #### `sh`
 
 - single-quotes를 사용합니다.
-
+- sh 파일을 실행할 수 있습니다.
 
 
