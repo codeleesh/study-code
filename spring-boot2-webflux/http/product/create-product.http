@@ -1,0 +1,8 @@
+POST http://localhost:8080/product
+Content-Type: application/json
+
+{
+  "product_name": "치킨",
+  "product_status": "ENABLE",
+  "product_count": 10
+}
