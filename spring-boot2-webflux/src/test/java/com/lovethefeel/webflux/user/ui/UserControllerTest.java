@@ -56,4 +56,16 @@ class UserControllerTest {
                 .jsonPath("$.mobile_phone.phone2").isEqualTo("1111")
                 .jsonPath("$.mobile_phone.phone3").isEqualTo("2222");
     }
+
+    @DisplayName("사용자 아이디를 입력하지 않으면 예외를 발생한다.")
+    @Test
+    void createUserTest_validation() {
+        final UserRequest 사용자_요청 = TestUserFactory.사용자_등록_요청(" ", "", Sex.MALE, MobileAgency.SK, "010", "1111", "2222");
+
+        this.webTestClient.post().uri("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(사용자_요청))
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
 }
