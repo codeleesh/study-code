@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "user_id": "test",
-  "user_name": "test",
+  "user_name": null,
   "sex": "MALE",
   "mobile_agency": "SK",
   "phone1": "010",
