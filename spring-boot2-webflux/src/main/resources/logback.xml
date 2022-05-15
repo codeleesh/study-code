@@ -6,7 +6,7 @@
     <include resource="file-appender.xml" />
     <include resource="json-appender.xml" />
 
-    <springProfile name="local">
+    <springProfile name="test">
 
 <!--        <logger name="file" level="INFO" >-->
 <!--            <appender-ref ref="file" />-->
