@@ -6,18 +6,25 @@ import com.lovethefeel.webflux.user.domain.MobilePhone;
 import com.lovethefeel.webflux.user.domain.Sex;
 import com.lovethefeel.webflux.user.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
+@Getter
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PRIVATE)
 public class UserRequest {
 
+    @NotBlank(message = "사용자 아이디는 입력해야 합니다.")
     @JsonProperty("user_id")
     private String userId;
 
+    @NotNull(message = "사용자 이름은 입력해야 합니다.")
     @JsonProperty("user_name")
     private String userName;
 
