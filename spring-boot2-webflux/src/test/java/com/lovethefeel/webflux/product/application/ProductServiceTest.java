@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -29,8 +31,8 @@ class ProductServiceTest {
     @DisplayName("상품을 등록한다.")
     @Test
     void saveProduct() {
-        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("치킨", ProductStatus.ENABLE, 10);
-        final Product 상품_생성_기대값 = TestProductFactory.상품(1L, "치킨", ProductStatus.ENABLE, 10);
+        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("치킨", new BigDecimal("20000"), ProductStatus.ENABLE, 10);
+        final Product 상품_생성_기대값 = TestProductFactory.상품(1L, "치킨", new BigDecimal("20000"), ProductStatus.ENABLE, 10);
 
         given(productRepository.save(any())).willReturn(상품_생성_기대값);
 

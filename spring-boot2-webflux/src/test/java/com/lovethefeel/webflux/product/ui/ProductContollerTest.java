@@ -14,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.math.BigDecimal;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -29,8 +31,8 @@ class ProductContollerTest {
     @DisplayName("상품 등록한다.")
     @Test
     void createProductTest() {
-        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("치킨", ProductStatus.ENABLE, 10);
-        final ProductResponse 상품_응답 = TestProductFactory.상품_등록_응답(1L, "치킨", ProductStatus.ENABLE, 10);
+        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("치킨", new BigDecimal("20000"), ProductStatus.ENABLE, 10);
+        final ProductResponse 상품_응답 = TestProductFactory.상품_등록_응답(1L, "치킨", new BigDecimal("20000"), ProductStatus.ENABLE, 10);
 
         given(this.productService.saveProduct(any()))
                 .willReturn(상품_응답);
@@ -53,7 +55,7 @@ class ProductContollerTest {
     @DisplayName("상품 이름을 입력하지 않으면 예외를 발생한다.")
     @Test
     void createUserTest_validation() {
-        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("", ProductStatus.ENABLE, 10);
+        final ProductRequest 상품_요청 = TestProductFactory.상품_등록_요청("", new BigDecimal("20000"), ProductStatus.ENABLE, 10);
 
         this.webTestClient.post().uri("/product")
                 .contentType(MediaType.APPLICATION_JSON)
