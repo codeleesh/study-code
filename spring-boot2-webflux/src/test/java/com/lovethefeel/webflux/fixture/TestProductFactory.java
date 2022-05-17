@@ -10,16 +10,18 @@ import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class TestProductFactory {
-    public static Product 상품(final Long productId, final String productName, final ProductStatus productStatus, final int productCount) {
-        return Product.from(productId, productName, productStatus, productCount);
+    public static Product 상품(final Long productId, final String productName, final BigDecimal productAmount, final ProductStatus productStatus, final int productCount) {
+        return Product.from(productId, productName, productAmount, productStatus, productCount);
     }
 
-    public static ProductRequest 상품_등록_요청(final String productName, final ProductStatus productStatus, final int productCount) {
-        return ProductRequest.from(productName, productStatus, productCount);
+    public static ProductRequest 상품_등록_요청(final String productName, final BigDecimal productAmount, final ProductStatus productStatus, final int productCount) {
+        return ProductRequest.from(productName, productAmount, productStatus, productCount);
     }
 
     public static void 상품_등록_생성됨(ProductResponse actual, Product expected) {
@@ -27,13 +29,14 @@ public class TestProductFactory {
                 () -> assertThat(actual).isNotNull(),
                 () -> assertThat(actual.getProductId()).isEqualTo(expected.getId()),
                 () -> assertThat(actual.getProductName()).isEqualTo(expected.getName()),
+                () -> assertThat(actual.getProductAmount()).isEqualTo(expected.getAmount()),
                 () -> assertThat(actual.getProductStatus()).isEqualTo(expected.getStatus()),
                 () -> assertThat(actual.getProductCount()).isEqualTo(expected.getCount())
         );
     }
 
-    public static ProductResponse 상품_등록_응답(Long productId, String productName, ProductStatus productStatus, int productCount) {
-        return ProductResponse.from(productId, productName, productStatus, productCount);
+    public static ProductResponse 상품_등록_응답(Long productId, String productName, BigDecimal productAmount, ProductStatus productStatus, int productCount) {
+        return ProductResponse.from(productId, productName, productAmount, productStatus, productCount);
     }
 
     public static ExtractableResponse<Response> 상품_등록_요청함(ProductRequest 상품_요청) {
