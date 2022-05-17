@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -23,6 +24,9 @@ public class ProductResponse {
     @JsonProperty("product_name")
     private String productName;
 
+    @JsonProperty("product_amount")
+    private BigDecimal productAmount;
+
     @JsonProperty("product_status")
     private ProductStatus productStatus;
 
@@ -30,11 +34,11 @@ public class ProductResponse {
     private int productCount;
 
     public static ProductResponse of(final Product saveProduct) {
-        return new ProductResponse(saveProduct.getId(), saveProduct.getName(), saveProduct.getStatus(), saveProduct.getCount());
+        return new ProductResponse(saveProduct.getId(), saveProduct.getName(), saveProduct.getAmount(), saveProduct.getStatus(), saveProduct.getCount());
     }
 
-    public static ProductResponse from(final Long productId, final String productName, final ProductStatus productStatus, final int productCount) {
-        return new ProductResponse(productId, productName, productStatus, productCount);
+    public static ProductResponse from(final Long productId, final String productName, final BigDecimal productAmount, final ProductStatus productStatus, final int productCount) {
+        return new ProductResponse(productId, productName, productAmount, productStatus, productCount);
     }
 
     @Override

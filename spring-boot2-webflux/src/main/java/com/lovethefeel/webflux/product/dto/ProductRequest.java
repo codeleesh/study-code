@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -23,18 +23,21 @@ public class ProductRequest {
     @JsonProperty("product_name")
     private String productName;
 
+    @JsonProperty("product_amount")
+    private BigDecimal productAmount;
+
     @JsonProperty("product_status")
     private ProductStatus productStatus;
 
     @JsonProperty("product_count")
     private int productCount;
 
-    public static ProductRequest from(final String productName, final ProductStatus productStatus, final int productCount) {
-        return new ProductRequest(productName, productStatus, productCount);
+    public static ProductRequest from(final String productName, final BigDecimal productAmount, final ProductStatus productStatus, final int productCount) {
+        return new ProductRequest(productName, productAmount, productStatus, productCount);
     }
 
     public Product toEntity() {
-        return Product.from(this.productName, this.productStatus, this.productCount);
+        return Product.from(this.productName, this.productAmount, this.productStatus, this.productCount);
     }
 
     @Override
@@ -42,19 +45,20 @@ public class ProductRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductRequest that = (ProductRequest) o;
-        return productCount == that.productCount && Objects.equals(productName, that.productName) && productStatus == that.productStatus;
+        return productCount == that.productCount && Objects.equals(productName, that.productName) && Objects.equals(productAmount, that.productAmount) && productStatus == that.productStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productName, productStatus, productCount);
+        return Objects.hash(productName, productAmount, productStatus, productCount);
     }
 
     @Override
     public String toString() {
         return "ProductRequest{" +
                 "productName='" + productName + '\'' +
-                ", productType=" + productStatus +
+                ", productAmount=" + productAmount +
+                ", productStatus=" + productStatus +
                 ", productCount=" + productCount +
                 '}';
     }
