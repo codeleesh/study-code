@@ -3,6 +3,7 @@ Content-Type: application/json
 
 {
   "product_name": "치킨",
+  "product_amount": "10000",
   "product_status": "ENABLE",
   "product_count": 10
 }
