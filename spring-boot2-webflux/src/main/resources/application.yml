@@ -9,7 +9,7 @@ spring:
       on-profile: test
 
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create
     properties:
