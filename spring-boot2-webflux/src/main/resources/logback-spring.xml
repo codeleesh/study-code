@@ -1,17 +1,12 @@
-<configuration>
-
-    <!-- spirng boot의 기본 logback base.xml은 그대로 이용한다. -->
-<!--    <include resource="org/springframework/boot/logging/logback/base.xml" />-->
+<configuration packagingData="true">
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
     <include resource="console-appender.xml" />
     <include resource="file-appender.xml" />
     <include resource="json-appender.xml" />
 
     <springProfile name="test">
 
-<!--        <logger name="file" level="INFO" >-->
-<!--            <appender-ref ref="file" />-->
-<!--        </logger>-->
-        <root level="INFO" additivity="true">
+        <root level="INFO" additivity="false">
             <appender-ref ref="file" />
             <appender-ref ref="console" />
         </root>
