@@ -15,30 +15,30 @@ import java.util.UUID;
 @Component
 public class WebMDCFilter implements WebFilter {
 
-    public static final String TRACE_ID = "traceId";
+    private static final String TRACE_ID = "traceId";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        return chain.filter(exchange).transformDeferred(call -> doFilter(exchange, call));
+        return chain.filter(exchange).transformDeferred(this::doFilter);
     }
 
-    private Publisher<Void> doFilter(ServerWebExchange exchange, Mono<Void> call) {
+    private Publisher<Void> doFilter(Mono<Void> call) {
         // before
-        return Mono.fromRunnable(() -> doBeforeRequest(exchange))
+        return Mono.fromRunnable(this::doBeforeRequest)
                 // do request
                 .then(call)
                 // after (success)
-                .doOnSuccess(done -> doAfterRequest(exchange));
+                .doOnSuccess(done -> doAfterRequest());
     }
 
-    private void doBeforeRequest(ServerWebExchange exchange) {
+    private void doBeforeRequest() {
         log.info("===================== START =====================");
         final String traceId = UUID.randomUUID().toString();
         MDC.put(TRACE_ID, traceId);
         log.info("traceId : {}", traceId);
     }
 
-    private void doAfterRequest(ServerWebExchange exchange) {
+    private void doAfterRequest() {
         log.info("MDC GET : {}", MDC.get(TRACE_ID));
         MDC.clear();
         log.info("MDC CLEAR : {}", MDC.get(TRACE_ID));
