@@ -3,6 +3,7 @@ package com.lovethefeel.webflux;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MarkerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,9 +28,16 @@ public class SpringBoot2WebfluxApplication implements CommandLineRunner {
         log.warn("여기는 warn 입니다.");
         log.error("여기는 error 입니다.");
 
-        jsonLogger.info("{}, {}",
+        jsonLogger.info(MarkerFactory.getMarker("jsonTags"), "{}, {}",
                 kv("출발지", "검암"),
                 kv("도착지", "김포공항")
         );
+
+        try {
+            String str = null;
+            str.substring(1, 2);
+        } catch (Exception e) {
+            jsonLogger.error(MarkerFactory.getMarker("jsonTags"), "{}", e);
+        }
     }
 }
