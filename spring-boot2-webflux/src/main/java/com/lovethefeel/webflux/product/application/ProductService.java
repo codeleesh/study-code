@@ -6,6 +6,8 @@ import com.lovethefeel.webflux.product.dto.ProductResponse;
 import com.lovethefeel.webflux.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class ProductService {
 
+    private static final Marker MARKER_PRODUCT = MarkerFactory.getMarker("PRODUCT");
+
     final ProductRepository productRepository;
 
     @Transactional
     public ProductResponse saveProduct(final ProductRequest productRequest) {
-        log.info("saveUser - productRequest [{}]", productRequest);
+        log.info(MARKER_PRODUCT, "saveUser - productRequest [{}]", productRequest);
+        log.info(MARKER_PRODUCT, "saveUser - productRequest [{}]", productRequest);
         final Product saveProduct = productRepository.save(productRequest.toEntity());
         ProductResponse productResponse = ProductResponse.of(saveProduct);
-        log.info("saveUser - productResponse [{}]", productResponse);
+        log.info(MARKER_PRODUCT, "saveUser - productResponse [{}]", productResponse);
         return productResponse;
     }
 }
