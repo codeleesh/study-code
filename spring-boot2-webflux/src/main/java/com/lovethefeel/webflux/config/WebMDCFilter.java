@@ -30,19 +30,16 @@ public class WebMDCFilter implements WebFilter {
                 // after (success)
                 .doOnSuccess(done -> doAfterRequest());
     }
-
     private void doBeforeRequest() {
         log.info("===================== START =====================");
         final String traceId = UUID.randomUUID().toString();
         MDC.put(TRACE_ID, traceId);
         log.info("traceId : {}", traceId);
     }
-
     private void doAfterRequest() {
         log.info("MDC GET : {}", MDC.get(TRACE_ID));
         MDC.clear();
         log.info("MDC CLEAR : {}", MDC.get(TRACE_ID));
         log.info("===================== END =====================");
     }
-
 }
