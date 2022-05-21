@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <included>
-
     <property name="LOG_HOME" value="./logs" />
     <property name="JSON_LOG_FILE" value="json-logFile.log" />
-
     <appender name="json" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/${JSON_LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -13,7 +11,7 @@
             <maxHistory>7</maxHistory>
             <totalSizeCap>2GB</totalSizeCap>
         </rollingPolicy>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" >
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <includeContext>true</includeContext>
             <includeCallerData>true</includeCallerData>
             <!-- 로그를 이쁘게 출력하기 위해서 -->
@@ -23,5 +21,4 @@
             <timestampPattern>yyyy-MM-dd HH:mm:ss.SSS</timestampPattern>
         </encoder>
     </appender>
-
 </included>
