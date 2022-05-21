@@ -8,9 +8,20 @@
     <include resource="warn-file-appender.xml" />
     <include resource="json-appender.xml" />
 
-    <springProfile name="test">
-
+    <springProfile name="local">
         <root level="INFO" additivity="false">
+            <appender-ref ref="file" />
+            <appender-ref ref="console" />
+            <appender-ref ref="error-file" />
+            <appender-ref ref="warn-file" />
+        </root>
+        <logger name="json" level="INFO" >
+            <appender-ref ref="json" />
+        </logger>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="ERROR" additivity="false">
             <appender-ref ref="file" />
             <appender-ref ref="console" />
             <appender-ref ref="error-file" />
@@ -18,15 +29,8 @@
         </root>
 
         <!-- logger name이 json일때 적용할 appender를 등록한다.-->
-        <logger name="json" level="INFO" >
+        <logger name="json" level="ERROR" >
             <appender-ref ref="json" />
-        </logger>
-
-    </springProfile>
-
-    <springProfile name="prod">
-        <logger name="console" level="DEBUG" >
-            <appender-ref ref="console" />
         </logger>
     </springProfile>
 
