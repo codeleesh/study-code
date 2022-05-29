@@ -32,12 +32,5 @@ public class SpringBoot2WebfluxApplication implements CommandLineRunner {
                 kv("출발지", "검암"),
                 kv("도착지", "김포공항")
         );
-
-        try {
-            String str = null;
-            str.substring(1, 2);
-        } catch (Exception e) {
-            jsonLogger.error(MarkerFactory.getMarker("jsonTags"), "{}", e);
-        }
     }
 }
