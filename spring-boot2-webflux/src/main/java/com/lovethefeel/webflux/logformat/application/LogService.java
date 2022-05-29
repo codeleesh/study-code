@@ -71,5 +71,9 @@ public class LogService {
     }
 
     private class Foo {
+        @Override
+        public String toString() {
+            return "Foo{}";
+        }
     }
 }
