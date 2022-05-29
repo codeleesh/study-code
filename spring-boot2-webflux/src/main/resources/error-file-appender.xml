@@ -2,7 +2,7 @@
 
 <included>
     <property name="LOG_HOME" value="./logs" />
-    <property name="LOG_FILE" value="error-logFile.log" />
+    <property name="LOG_FILE" value="error-logFile" />
     <!--  appender이름이 file인 RollingFileAppender 선언  -->
     <appender name="error-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -10,11 +10,8 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <!--로깅이 기록될 위치-->
-        <file>${LOG_HOME}/${LOG_FILE}</file>
-        <!--로깅 파일이 특정 조건을 넘어가면 다른 파일로 만들어 준다.-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/rolling/error-logFile.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/rolling/${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>2GB</totalSizeCap>
