@@ -1,0 +1,6 @@
+rootProject.name = 'gradle-multi'
+include 'app-common'
+include 'app-order'
+include 'app-member'
+include 'app-product'
+
