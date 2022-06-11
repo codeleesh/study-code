@@ -14,6 +14,9 @@ public class ActiveProfile {
     @Value("${spring.config.activate.on-profile}")
     private String profile;
 
+    @Value("${spring.main.banner-mode}")
+    private String bannerMode;
+
     @Value("${external.api.url}")
     private String externalApiUrl;
 }
