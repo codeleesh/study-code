@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("local")
 class MessageConfigTest {
 
     @Autowired
@@ -19,7 +19,7 @@ class MessageConfigTest {
     @Test
     void messageConfigTest() {
         // then
-        assertThat(messageConfig.getApi().getCode()).isEqualTo("app");
-        assertThat(messageConfig.getApi().getName()).isEqualTo("external-api");
+        assertThat(messageConfig.getCode()).isEqualTo("app");
+        assertThat(messageConfig.getName()).isEqualTo("external-api");
     }
 }
