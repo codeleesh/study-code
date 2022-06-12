@@ -1,4 +1,4 @@
-package com.lovethefeel.profile.config;
+package me.lovethefeel.profile.config;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

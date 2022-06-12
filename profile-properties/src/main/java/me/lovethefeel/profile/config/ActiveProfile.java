@@ -1,10 +1,9 @@
-package com.lovethefeel.profile.config;
+package me.lovethefeel.profile.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Getter
 @Component
 public class ActiveProfile {
 

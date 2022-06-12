@@ -1,4 +1,4 @@
-package com.lovethefeel.profile;
+package me.lovethefeel.profile;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

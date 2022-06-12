@@ -1,6 +1,6 @@
-package com.lovethefeel.profile.config.prod;
+package me.lovethefeel.profile.config.local;
 
-import com.lovethefeel.profile.config.ActiveProfile;
+import me.lovethefeel.profile.config.ActiveProfile;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("prod")
+@ActiveProfiles("local")
 class ActiveProfileTest {
 
     @Autowired
@@ -27,13 +27,13 @@ class ActiveProfileTest {
     @Test
     void currentProfileTest() {
         // then
-        assertThat(activeProfile.getProfile()).isEqualTo("prod");
+        assertThat(activeProfile.getProfile()).isEqualTo("local");
     }
 
     @DisplayName("현재 설정된 active profile의 분리된 설정 파일을 임포트하여서 값을 확인한다.")
     @Test
     void externalApiUrl() {
         // then
-        assertThat(activeProfile.getExternalApiUrl()).isEqualTo("http://prod-host:8080/api");
+        assertThat(activeProfile.getExternalApiUrl()).isEqualTo("http://localhost:8080/api");
     }
 }
