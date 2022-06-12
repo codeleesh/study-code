@@ -1,0 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  config:
+    activate:
+      on-profile: prod
+    import: classpath:config/prod-config.properties
+server:
+  address: prod.localhost

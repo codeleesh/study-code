@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: debug
+
+spring:
+  main:
+    banner-mode: console
+
+message:
+  api:
+    code: app
+    name: external-api

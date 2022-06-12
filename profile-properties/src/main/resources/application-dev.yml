@@ -1,0 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  config:
+    activate:
+      on-profile: dev
+    import: classpath:config/dev-config.properties
+server:
+  address: dev.localhost

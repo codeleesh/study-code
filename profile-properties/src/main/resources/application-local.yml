@@ -1,0 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  config:
+    activate:
+      on-profile: local
+    import: classpath:config/local-config.properties
+server:
+  address: 127.0.0.1
