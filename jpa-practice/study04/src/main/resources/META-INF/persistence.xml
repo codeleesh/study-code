@@ -43,14 +43,24 @@
             <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:oracle:thin:@localhost:1521:xe"/>
-            <property name="jakarta.persistence.jdbc.user" value="localuser"/>
-            <property name="jakarta.persistence.jdbc.password" value="localpass"/>
+            <property name="jakarta.persistence.jdbc.user" value="test_jpa"/>
+            <property name="jakarta.persistence.jdbc.password" value="qwer1234"/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
             <property name="hibernate.hikari.poolName" value="pool"/>
             <property name="hibernate.hikari.maximumPoolSize" value="10"/>
             <property name="hibernate.hikari.minimumIdle" value="10"/>
             <property name="hibernate.hikari.connectionTimeout" value="1000"/> <!-- 1s -->
+
+            <!-- Hibernate 쿼리 로그 설정 시작 -->
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <!-- Hibernate 쿼리 로그 설정 종료 -->
+
+            <!-- Hibernate ddl 설정 시작 -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <!-- Hibernate ddl 설정 종료 -->
         </properties>
     </persistence-unit>
 </persistence>
