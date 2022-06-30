@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "crm", name = "activity_log")
+@Table(schema = "test_jpa", name = "activity_log")
 public class ActivityLog {
     @Id
     @SequenceGenerator(
             name = "log_seq_gen",
             sequenceName = "activity_seq",
-            schema = "crm",
+            schema = "test_jpa",
             allocationSize = 1
     )
     @GeneratedValue(generator = "log_seq_gen")
