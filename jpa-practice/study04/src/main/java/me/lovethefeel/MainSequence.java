@@ -18,7 +18,7 @@ public class MainSequence {
         tx.begin();
 
         try {
-            ActivityLog log = new ActivityLog("U01", "VISIT");
+            ActivityLog log = new ActivityLog("U17", "VISIT");
             logger.info("persist 실행 전");
             em.persist(log);
             logger.info("persist 실행 함");
