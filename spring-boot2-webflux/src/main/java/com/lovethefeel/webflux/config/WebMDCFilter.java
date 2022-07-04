@@ -45,6 +45,7 @@ public class WebMDCFilter implements WebFilter {
         MDC.put(TRACE_ID, traceId);
         log.info("traceId : {}", traceId);
     }
+
     private void doAfterRequest() {
         log.info("MDC GET : {}", MDC.get(TRACE_ID));
         MDC.clear();
