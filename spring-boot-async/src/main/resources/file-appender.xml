@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <property name="LOG_HOME" value="./logs" />
+    <property name="LOG_FILE" value="logFile.log" />
+    <!--  appender이름이 file인 RollingFileAppender 선언  -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--로깅이 기록될 위치-->
+        <file>${LOG_HOME}/${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/rolling/logFile.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf8</charset>
+            <pattern>[%contextName] - [%d{yyyy.MM.dd HH:mm:ss.SSS}] - [%-5level] - [%thread] - [%X{traceId}] - [%logger{5}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+</included>
