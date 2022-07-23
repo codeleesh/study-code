@@ -15,7 +15,7 @@
         </rollingPolicy>
         <encoder>
             <charset>utf8</charset>
-            <pattern>[%contextName] - [%d{yyyy.MM.dd HH:mm:ss.SSS}] - [%-5level] - [%thread] - [%X{traceId}] - [%logger{5}] - %msg%n</pattern>
+            <pattern>[%d{yyyy.MM.dd HH:mm:ss.SSS}] [%-5level] [%thread] [%X{traceId}] [%logger{5}] %msg%n</pattern>
         </encoder>
     </appender>
 

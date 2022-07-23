@@ -6,7 +6,7 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <!-- 해당 로깅의 패턴을 설정 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%cyan([%contextName]) - %magenta([%d{yyyy.MM.dd HH:mm:ss.SSS}]) - %highlight([%-5level]) - [%thread] - [%X{traceId}] - %green([%logger{5}]) - [%marker] - %msg%n</pattern>
+            <pattern>%magenta([%d{yyyy.MM.dd HH:mm:ss.SSS}]) %highlight([%-5level]) [%thread] %green([%logger{5}]) %msg%n</pattern>
         </encoder>
     </appender>
 <!--    <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
