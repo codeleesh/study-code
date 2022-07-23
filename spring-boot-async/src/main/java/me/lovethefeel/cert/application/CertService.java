@@ -15,7 +15,7 @@ public class CertService {
 
         String result = "false";
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
             result = "true";
         } catch (InterruptedException ie) {
             log.error("CertService::certProcess::InterruptedException {}", ie);
