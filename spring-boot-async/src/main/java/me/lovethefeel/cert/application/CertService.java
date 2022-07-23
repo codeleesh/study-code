@@ -2,7 +2,6 @@ package me.lovethefeel.cert.application;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
@@ -16,7 +15,7 @@ public class CertService {
 
         String result = "false";
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(500);
             result = "true";
         } catch (InterruptedException ie) {
             log.error("CertService::certProcess::InterruptedException {}", ie);
