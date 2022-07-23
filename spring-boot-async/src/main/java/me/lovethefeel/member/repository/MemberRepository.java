@@ -39,6 +39,12 @@ public class MemberRepository {
         return new ArrayList<>(store.values());
     }
 
+    public Member registerById(final Long id) {
+        Member member = store.get(id);
+        member.successRegisterMember();
+        return member;
+    }
+
     public void clearStore() {
         store.clear();
     }
