@@ -1,0 +1,16 @@
+POST http://localhost:19080/member/publish
+Content-Type: application/json
+
+{
+  "memberName": "lee",
+  "memberStatus": "INPROGREES",
+  "address": {
+    "city": "My City",
+    "state": "My State",
+    "zipCode": "20090"
+  },
+  "created": "",
+  "createdBy": "lee",
+  "updated": "",
+  "updateBy": "lee"
+}

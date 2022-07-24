@@ -1,0 +1,19 @@
+package me.lovethefeel.member.domain;
+
+import java.io.Serializable;
+
+public class Address implements Serializable {
+
+    private String city;
+    private String state;
+    private String zipCode;
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                '}';
+    }
+}
