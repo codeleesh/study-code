@@ -16,17 +16,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public static OrderItem of(final Long seq, final Long orderId, final Long menuId, long quantity) {
-        return new OrderItem(seq, orderId, menuId, quantity);
-    }
 
-    public static OrderItem of(final Long orderId, final Long menuId, final long quantity) {
-        return new OrderItem(null, orderId, menuId, quantity);
-    }
-
-    public static OrderItem of(final Long menuId, final long quantity) {
-        return new OrderItem(null, null, menuId, quantity);
-    }
 
     public static OrderItemBuilder builder() {
         return new OrderItemBuilder();
