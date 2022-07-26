@@ -1,5 +1,8 @@
 HELP.md
 .gradle
+gradle
+out
+gradle-4.8.1
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
