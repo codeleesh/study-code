@@ -1,0 +1,6 @@
+POST http://localhost:8080/v1/member
+Content-Type: application/json
+
+{
+  "memberName": "lsh"
+}
