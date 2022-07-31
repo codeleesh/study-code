@@ -1,0 +1,7 @@
+PATCH http://localhost:8080/v1/product
+Content-Type: application/json
+
+{
+  "productId": 4,
+  "productName": "changeProduct"
+}
