@@ -1,0 +1,7 @@
+PATCH http://localhost:8080/v1/write
+Content-Type: application/json
+
+{
+  "writeId": 1,
+  "writeName": "changeWrite2"
+}

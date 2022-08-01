@@ -11,28 +11,23 @@ import me.lovethefeel.jpahistory.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberService {
 
-    final MemberRepository memberRepository;
-    final MemberHistoryRepository historyRepository;
+    private final MemberRepository memberRepository;
+    private final MemberHistoryRepository historyRepository;
 
     @Transactional
     public MemberResponse createMember(final MemberRequest memberRequest) {
 
         final Member saveMember = memberRepository.save(memberRequest.toCreateEntity());
-        if (Objects.nonNull(saveMember)) {
-            final MemberHistory memberHistory = MemberHistory.fromEntity(saveMember, "신규 저장");
-            historyRepository.save(memberHistory);
-        }
+        final MemberHistory memberHistory = MemberHistory.fromEntity(saveMember, "신규 저장");
+        historyRepository.save(memberHistory);
 
-        final MemberResponse memberResponse = MemberResponse.fromResponse(saveMember);
-        return memberResponse;
+        return MemberResponse.fromResponse(saveMember);
     }
 
     @Transactional
@@ -45,7 +40,6 @@ public class MemberService {
         final MemberHistory memberHistory = MemberHistory.fromEntity(findMember, "이름 변경");
         historyRepository.save(memberHistory);
 
-        final MemberResponse memberResponse = MemberResponse.fromResponse(findMember);
-        return memberResponse;
+        return MemberResponse.fromResponse(findMember);
     }
 }
