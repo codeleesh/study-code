@@ -6,12 +6,15 @@ import lombok.Getter;
 public class MemberRedisResponse {
 
     private boolean result;
+    private String uuid;
 
-    private MemberRedisResponse(final boolean result) {
+    private MemberRedisResponse(final boolean result, final String uuid) {
+
         this.result = result;
+        this.uuid = uuid;
     }
 
-    public static MemberRedisResponse success() {
-        return new MemberRedisResponse(true);
+    public static MemberRedisResponse success(final String uuid) {
+        return new MemberRedisResponse(true, uuid);
     }
 }

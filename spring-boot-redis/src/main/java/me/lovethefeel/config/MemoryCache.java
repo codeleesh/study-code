@@ -1,14 +1,15 @@
 package me.lovethefeel.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public interface MemoryCache<V> {
 
-    String getRestKey(String modelType, String index, String key);
-    void setRestKey(String key, String value);
-    void setRestKey(String key, String value, long ttl, TimeUnit unit);
-    V get(String index, String key, Type type) throws JsonProcessingException;
+    V get(final String key, final Type type);
+    void set(final String key, final String value);
+    void setRestKey(final String key, final String value, final long ttl, final TimeUnit unit);
+    void delete(final String key);
 }

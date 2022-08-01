@@ -20,7 +20,6 @@ spring:
         idle: 10
       wait:
         milli: 200
-    database: 5
     host: localhost
     port: 6379
 
