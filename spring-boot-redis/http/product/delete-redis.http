@@ -1,0 +1,1 @@
+DELETE http://localhost:8080/v1/product/item?uuid=a535f260-d14d-41de-8222-616a6ac9d7ab
