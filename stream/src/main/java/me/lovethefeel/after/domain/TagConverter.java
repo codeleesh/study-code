@@ -4,10 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Converter
 public class TagConverter implements AttributeConverter<Set<String>, String> {
     public static final String EMPTY_STRING = "";
     public static final char SEPARATOR = ',';
