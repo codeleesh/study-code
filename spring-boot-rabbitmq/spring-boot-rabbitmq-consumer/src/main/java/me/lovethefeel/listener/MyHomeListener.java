@@ -1,7 +1,7 @@
-package me.lovethefeel.rabbitmq.listener;
+package me.lovethefeel.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
+import me.lovethefeel.member.domain.Member;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class MyHomeListener {
 
     @RabbitListener(queues = "myhome.queue")
-    public void receiveMessage(final Message message) {
-        log.info(message.toString());
+    public void receiveMessage(final Member member) {
+        log.info("Message Member {}", member);
     }
 }
