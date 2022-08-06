@@ -16,7 +16,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/publish")
+    @PostMapping("publish")
     public String memberPublish(@RequestBody final MemberRequest memberRequest) {
 
         return memberService.memberPublish(Member.from(memberRequest));
