@@ -10,7 +10,6 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.junit.RabbitAvailable;
 import org.springframework.amqp.rabbit.test.RabbitListenerTest;
 import org.springframework.amqp.rabbit.test.RabbitListenerTestHarness;
 import org.springframework.amqp.rabbit.test.mockito.LatchCountDownAndCallRealMethodAnswer;
@@ -28,7 +27,7 @@ import static org.mockito.Mockito.verify;
 
 @SpringJUnitConfig
 @DirtiesContext
-public class RabbitListenerProxyTest {
+class RabbitListenerProxyTest {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
