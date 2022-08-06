@@ -9,8 +9,8 @@ Content-Type: application/json
     "state": "My State",
     "zipCode": "20090"
   },
-  "created": "",
+  "created": "2022-08-06T10:00:00",
   "createdBy": "lee",
-  "updated": "",
+  "updated": "2022-08-06T10:00:00",
   "updateBy": "lee"
 }
