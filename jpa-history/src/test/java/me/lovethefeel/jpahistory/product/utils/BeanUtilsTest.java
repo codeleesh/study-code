@@ -14,7 +14,7 @@ class BeanUtilsTest {
     @Test
     void success_get_bean() {
 
-        final ProductRepository productRepository = (ProductRepository) BeanUtils.getBean("productRepository");
+        final ProductRepository productRepository = (ProductRepository) BeanUtils.getBean(ProductRepository.class);
 
         assertThat(productRepository).isNotNull();
     }
