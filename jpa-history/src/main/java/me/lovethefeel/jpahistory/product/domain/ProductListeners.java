@@ -12,7 +12,7 @@ public class ProductListeners {
     @PostPersist
     public void productInsert(final Product product) {
 
-        final ProductHistoryRepository historyRepository = (ProductHistoryRepository) BeanUtils.getBean("productHistoryRepository");
+        final ProductHistoryRepository historyRepository = (ProductHistoryRepository) BeanUtils.getBean(ProductHistoryRepository.class);
         log.info("Product Insert product {}", product);
 
         final ProductHistory productHistory = ProductHistory.fromEntity(product, "신규 저장");
@@ -23,7 +23,7 @@ public class ProductListeners {
     @PostUpdate
     public void productUpdate(final Product product) {
 
-        final ProductHistoryRepository historyRepository = (ProductHistoryRepository) BeanUtils.getBean("productHistoryRepository");
+        final ProductHistoryRepository historyRepository = (ProductHistoryRepository) BeanUtils.getBean(ProductHistoryRepository.class);
         log.info("Product Update product {}", product);
 
         final ProductHistory productHistory = ProductHistory.fromEntity(product, "이름 변경");
