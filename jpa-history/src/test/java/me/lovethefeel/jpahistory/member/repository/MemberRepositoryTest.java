@@ -4,14 +4,15 @@ import me.lovethefeel.jpahistory.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.*;
 
-@DataJpaTest
+@SpringBootTest
 @AutoConfigureTestDatabase(replace = NONE)
-class ProductRepositoryTest {
+class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
@@ -20,6 +21,7 @@ class ProductRepositoryTest {
     private MemberHistoryRepository historyRepository;
 
     @Test
+    @Transactional
     void create_member_and_history() {
 
         final Member member = Member.fromCreate("lsh");
