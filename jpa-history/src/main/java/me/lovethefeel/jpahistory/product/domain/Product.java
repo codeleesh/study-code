@@ -1,5 +1,6 @@
 package me.lovethefeel.jpahistory.product.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Entity
+@AllArgsConstructor
 @EntityListeners(ProductListeners.class)
 public class Product {
 
@@ -42,6 +44,12 @@ public class Product {
 
     public static Product fromCreate(final String productName) {
         return new Product(productName);
+    }
+
+    public static Product of(final Long id, final String productName, final Timestamp createBy, final String created
+            , final Timestamp updated, final String updateBy) {
+
+        return new Product(id, productName, createBy, created, updated, updateBy);
     }
 
     public void updateName(final String changeProductName) {
