@@ -1,7 +1,0 @@
-POST http://localhost:8090/request-body-json
-Content-Type: application/json
-
-{
-  "userName" : "lee",
-  "age" : 20
-}

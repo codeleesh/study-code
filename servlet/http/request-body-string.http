@@ -1,4 +1,0 @@
-POST http://localhost:8090/request-body-string
-Content-Type: text/plain
-
-hello!
