@@ -20,7 +20,7 @@ class OrderRepositoryTest {
     @Test
     void save_temp_order() {
 
-        final Order entity = Order.createEntity("orderId", "orderName", OrderStatus.TEMPSAVE);
+        final Order entity = Order.createEntity("ORDER001", "주문", OrderStatus.TEMPSAVE);
 
         final Order saveOrder = orderRepository.save(entity);
 
