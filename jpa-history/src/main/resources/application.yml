@@ -1,4 +1,36 @@
 spring:
+  profiles:
+    default: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:tcp://localhost/~/test
+
+  jpa:
+    show-sql: true
+    format-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: lovethefeel
