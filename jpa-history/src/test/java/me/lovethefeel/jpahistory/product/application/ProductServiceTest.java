@@ -36,18 +36,15 @@ class ProductServiceTest {
     void saveProduct() {
 
         final Timestamp currentTimestamp = Timestamp.valueOf("2022-08-12 22:10:00.000");
-
         final ProductRequest 상품_요청 = ProductRequest.of(1L, "치킨");
         final Product 상품_생성_기대값 = Product.of(1L, "치킨", currentTimestamp, "SYSTEM", currentTimestamp, "SYSTEM");
         final ProductHistory 상품_이력_생성_기대값 = ProductHistory.fromEntity(상품_생성_기대값, "신규 저장");
 
         given(productRepository.save(any())).willReturn(상품_생성_기대값);
-        given(productHistoryRepository.save(any())).willReturn(상품_이력_생성_기대값);
 
         final ProductResponse 상품_생성_응답값 = productService.createProduct(상품_요청);
 
         verify(productRepository, times(1)).save(any());
-        verify(productHistoryRepository, never()).save(any());
     }
 
 }
