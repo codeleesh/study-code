@@ -2,15 +2,22 @@ package me.lovethefeel.jpahistory.product.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static lombok.AccessLevel.*;
+
 @Getter
 @Entity
-@AllArgsConstructor
-@EntityListeners(ProductListeners.class)
+@ToString
+@AllArgsConstructor(access = PRIVATE)
+@EntityListeners({ProductListeners.class, AuditingEntityListener.class})
 public class Product {
 
     public static final String SYSTEM = "SYSTEM";
@@ -22,10 +29,14 @@ public class Product {
     @Column(name = "product_name")
     private String productName;
 
+    @CreatedDate
+    @Column(updatable = false)
     private Timestamp created;
 
+    @Column(updatable = false)
     private String createBy;
 
+    @LastModifiedDate
     private Timestamp updated;
 
     private String updateBy;
@@ -71,17 +82,5 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
-                ", created=" + created +
-                ", createBy='" + createBy + '\'' +
-                ", updated=" + updated +
-                ", updateBy='" + updateBy + '\'' +
-                '}';
     }
 }

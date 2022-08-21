@@ -1,9 +1,20 @@
 package me.lovethefeel.jpahistory.write.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
+
+import static lombok.AccessLevel.PRIVATE;
 
 @Entity
+@ToString
+@AllArgsConstructor(access = PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class WriteHistory {
 
     @Id
@@ -20,19 +31,18 @@ public class WriteHistory {
     @Column(name = "comment")
     private String comment;
 
+    @CreatedDate
+    @Column(updatable = false)
     private Timestamp created;
 
+    @Column(updatable = false)
     private String createBy;
 
     protected WriteHistory() {}
 
     private WriteHistory(final Long writeId, final String writeName, final String comment) {
-        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        this.writeId = writeId;
-        this.writeName = writeName;
-        this.comment = comment;
-        this.created = timestamp;
-        this.createBy = writeName;
+
+        this(null, writeId, writeName, comment, null, null);
     }
 
     public static WriteHistory from(final Long writeId, final String writeName, final String comment) {
@@ -44,14 +54,15 @@ public class WriteHistory {
     }
 
     @Override
-    public String toString() {
-        return "WriteHistory{" +
-                "id=" + id +
-                ", writeId=" + writeId +
-                ", writeName='" + writeName + '\'' +
-                ", comment='" + comment + '\'' +
-                ", created=" + created +
-                ", createBy='" + createBy + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WriteHistory that = (WriteHistory) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

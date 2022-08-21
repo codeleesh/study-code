@@ -1,10 +1,21 @@
 package me.lovethefeel.jpahistory.product.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
+@ToString
+@AllArgsConstructor(access = PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class ProductHistory {
 
     @Id
@@ -21,19 +32,18 @@ public class ProductHistory {
     @Column(name = "comment")
     private String comment;
 
+    @CreatedDate
+    @Column(updatable = false)
     private Timestamp created;
 
+    @Column(updatable = false)
     private String createBy;
 
     protected ProductHistory() {}
 
     private ProductHistory(final Long productId, final String productName, final String comment) {
-        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        this.productId = productId;
-        this.productName = productName;
-        this.comment = comment;
-        this.created = timestamp;
-        this.createBy = productName;
+
+        this(null, productId, productName, comment, null, null);
     }
 
     public static ProductHistory from(final Long productId, final String productName, final String comment) {
@@ -55,17 +65,5 @@ public class ProductHistory {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "ProductHistory{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", comment='" + comment + '\'' +
-                ", created=" + created +
-                ", createBy='" + createBy + '\'' +
-                '}';
     }
 }

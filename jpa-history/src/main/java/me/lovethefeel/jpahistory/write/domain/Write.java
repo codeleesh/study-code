@@ -1,14 +1,23 @@
 package me.lovethefeel.jpahistory.write.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
+
+import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @Entity
 @Table(name = "writes")
+@ToString
+@AllArgsConstructor(access = PRIVATE)
+@EntityListeners(AuditingEntityListener.class)
 public class Write {
 
     @Id
@@ -19,10 +28,14 @@ public class Write {
     @Column(name = "write_name")
     private String writeName;
 
+    @CreatedDate
+    @Column(updatable = false)
     private Timestamp created;
 
+    @Column(updatable = false)
     private String createBy;
 
+    @LastModifiedDate
     private Timestamp updated;
 
     private String updateBy;
@@ -31,16 +44,17 @@ public class Write {
 
     private Write(final String writeName) {
 
-        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        this.writeName = writeName;
-        this.created = timestamp;
-        this.createBy = writeName;
-        this.updated = timestamp;
-        this.updateBy = writeName;
+        this(null, writeName, null, writeName, null, writeName);
     }
 
     public static Write fromCreate(final String writeName) {
         return new Write(writeName);
+    }
+
+    public static Write ofCreate(final Long id, final String writeName, final Timestamp created, final String createBy
+            , final Timestamp updated, final String updateBy) {
+
+        return new Write(id, writeName, created, createBy, updated, updateBy);
     }
 
     public void updateName(final String changeWriteName) {
@@ -49,18 +63,5 @@ public class Write {
         this.writeName = changeWriteName;
         this.updated = timestamp;
         this.updateBy = changeWriteName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Write write = (Write) o;
-        return Objects.equals(id, write.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
