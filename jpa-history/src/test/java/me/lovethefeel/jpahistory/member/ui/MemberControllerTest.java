@@ -3,6 +3,7 @@ package me.lovethefeel.jpahistory.member.ui;
 import me.lovethefeel.jpahistory.member.domain.Member;
 import me.lovethefeel.jpahistory.member.dto.MemberRequest;
 import me.lovethefeel.jpahistory.member.repository.MemberRepository;
+import me.lovethefeel.jpahistory.write.repository.WriteRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,11 +25,17 @@ class MemberControllerTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private WriteRepository writeRepository;
+
     private Member test;
+
+    private MemberRequest lsh;
 
     @BeforeAll
     void setUp() {
 
+        lsh = MemberRequest.from("lsh");
         test = Member.fromCreate("test");
         Member save = memberRepository.save(test);
     }
@@ -36,7 +43,9 @@ class MemberControllerTest {
     @AfterAll
     void tearDown() {
 
-        memberRepository.delete(test);
+        // delete 메소드에 @Transactional 메소드 추가
+        memberRepository.deleteAllByMemberName(lsh.getMemberName());
+        writeRepository.deleteAllByWriteName("lsh");
     }
 
     @Test
