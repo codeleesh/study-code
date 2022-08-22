@@ -1,5 +1,6 @@
 package me.lovethefeel.jpahistory.member.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -8,8 +9,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @ToString
+@AllArgsConstructor(access = PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
 public class MemberHistory {
 
@@ -35,17 +39,6 @@ public class MemberHistory {
     private String createBy;
 
     protected MemberHistory() {}
-
-    private MemberHistory(final Long id, final Long memberId, final String memberName, final String comment
-            , final Timestamp created, final String createBy) {
-
-        this.id = id;
-        this.memberId = memberId;
-        this.memberName = memberName;
-        this.comment = comment;
-        this.created = created;
-        this.createBy = createBy;
-    }
 
     private MemberHistory(final Long memberId, final String memberName, final String comment) {
 
