@@ -1,0 +1,38 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        # registerHealthIndicator: true
+        slidingWindowSize: 10
+        # minimumNumberofCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        # automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        # eventConsumerBufferSize: 10
+        recoedException:
+          - java.net.UnknownHostException
+        ignoreException:
+          - java.util.NoSuchElementException
+
+    instances:
+      order:
+        minimumNumberOfCalls: 10
+        waitDurationInOpenState: 3s
+        failureRateThreshold: 10
+      reservation:
+        baseConfig: default
+
+
+#resilience4j:
+#  retry:
+#    configs:
+#      default:
+#        maxRetryAttempts: 2
+#        waitDuration: 5
+#        ignoreException:
+#          - java.util.NoSuchElementException
+#    instances:
+#      getAccessToken:
+#        baseConfig: default
+#        maxRetryAttempts: 3
