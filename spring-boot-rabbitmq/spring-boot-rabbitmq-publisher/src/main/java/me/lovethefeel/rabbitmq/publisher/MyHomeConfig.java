@@ -16,10 +16,12 @@ public class MyHomeConfig {
     private static final String ROUTING_KEY = "";
 
     TopicExchange exchange() {
+
         return new TopicExchange(EXCHANGE_NAME);
     }
 
     Queue queue() {
+
         return new Queue(QUEUE_NAME);
     }
 
