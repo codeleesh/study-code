@@ -1,3 +1,3 @@
 rootProject.name = 'sample-spring-kafka'
-include 'application-api'
-include 'kafka-consumer'
+include 'order-producer-api'
+include 'order-consumer-api'
