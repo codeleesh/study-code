@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class KafkaController {
 
-    private final KafkaTemplate<String, OrderRequest> orderRequestKafkaTemplate;
-    private static final String TOPIC_NAME = "my-topic";
+    private final KafkaTemplate<String, String> defaultKafkaTemplate;
+    private static final String TOPIC_NAME = "test-topic1";
 
     @PostMapping("produce")
     public ResponseEntity<Void> sendMessage(@RequestBody final OrderRequest orderRequest) {
 
-        orderRequestKafkaTemplate.send(TOPIC_NAME, orderRequest);
+        defaultKafkaTemplate.send(TOPIC_NAME, "", orderRequest.toString());
 
         return ResponseEntity.ok().build();
     }
