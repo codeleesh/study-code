@@ -1,3 +1,5 @@
 rootProject.name = 'sample-spring-kafka'
 include 'order-producer-api'
 include 'order-consumer-api'
+include 'order-domain'
+

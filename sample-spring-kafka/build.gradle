@@ -48,10 +48,12 @@ subprojects {
 
 project(':order-producer-api') {
     dependencies {
+        implementation project(':order-domain')
     }
 }
 
 project(':order-consumer-api') {
     dependencies {
+        implementation project(':order-domain')
     }
 }
