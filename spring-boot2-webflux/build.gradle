@@ -28,6 +28,9 @@ dependencies {
     implementation 'net.logstash.logback:logstash-logback-encoder:6.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-smile'
 
+    // rabbit-mq
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
     // jpa field log
     implementation "com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6"
 

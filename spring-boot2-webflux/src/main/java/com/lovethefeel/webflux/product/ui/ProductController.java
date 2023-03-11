@@ -21,7 +21,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         final ProductResponse productResponse = productService.saveProduct(productRequest);
         return ResponseEntity.created(URI.create("/product/" + productResponse.getProductId())).body(productResponse);
