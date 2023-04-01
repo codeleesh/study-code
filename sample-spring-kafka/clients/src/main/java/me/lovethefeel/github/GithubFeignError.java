@@ -9,7 +9,7 @@ public class GithubFeignError implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
-        log.info("test call");
+        log.error("test call");
         return null;
     }
 }

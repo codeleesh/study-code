@@ -16,5 +16,4 @@ public class GithubUserResponseDto {
     String avatar_url;
 
     String gravatar_id;
-
 }
