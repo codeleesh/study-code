@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+# feign client 로그 설정
+
+# spring devtools
+logging:
+  level:
+    me:
+      lovethefeel: DEBUG
+    web: TRACE
+    org:
+      springframework:
+        web: TRACE
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+# return pretty print json
