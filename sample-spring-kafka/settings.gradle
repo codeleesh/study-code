@@ -3,3 +3,5 @@ include 'order-producer-api'
 include 'order-consumer-api'
 include 'order-domain'
 include 'clients'
+include 'sample-api'
+

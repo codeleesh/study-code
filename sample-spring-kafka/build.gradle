@@ -1,6 +1,7 @@
 buildscript {
     ext {
         springBootVersion = '2.7.5'
+        springCloudVersion = '2021.0.3'
     }
     repositories {
         mavenCentral()
@@ -33,6 +34,12 @@ subprojects {
         mavenCentral()
     }
 
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
     dependencies {
         runtimeOnly 'com.h2database:h2'
         compileOnly 'org.projectlombok:lombok'
@@ -55,5 +62,11 @@ project(':order-producer-api') {
 project(':order-consumer-api') {
     dependencies {
         implementation project(':order-domain')
+    }
+}
+
+project(':sample-api') {
+    dependencies {
+        implementation project(':clients')
     }
 }
