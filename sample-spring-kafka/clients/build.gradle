@@ -7,5 +7,6 @@ jar {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 }
