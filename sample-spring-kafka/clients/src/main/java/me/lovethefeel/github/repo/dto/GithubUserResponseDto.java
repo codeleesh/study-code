@@ -1,5 +1,6 @@
 package me.lovethefeel.github.repo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,9 +12,14 @@ public class GithubUserResponseDto {
 
     Long id;
 
-    String node_id;
+    @JsonProperty("node_id")
+    String nodeId;
 
-    String avatar_url;
+    @JsonProperty("avatar_url")
+    String avatarUrl;
 
-    String gravatar_id;
+    @JsonProperty("gravatar_id")
+    String gravatarId;
+
+    private GithubUserResponseDto() {}
 }
