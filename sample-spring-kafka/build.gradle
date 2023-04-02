@@ -64,9 +64,3 @@ project(':order-consumer-api') {
         implementation project(':order-domain')
     }
 }
-
-project(':sample-api') {
-    dependencies {
-        implementation project(':clients')
-    }
-}
