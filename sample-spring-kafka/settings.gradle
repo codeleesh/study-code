@@ -4,4 +4,5 @@ include 'order-consumer-api'
 include 'order-domain'
 include 'clients'
 include 'sample-api'
+include 'image-api'
 
